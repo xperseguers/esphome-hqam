@@ -1,0 +1,9 @@
+gps:
+  latitude:
+    name: "Latitude"
+  longitude:
+    name: "Longitude"
+  altitude:
+    name: "Altitude"
+  satellites:
+    name: "Satellites"

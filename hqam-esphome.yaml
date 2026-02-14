@@ -4,6 +4,7 @@ substitutions:
   timezone: "Europe/Stockholm"
   rxpin: "GPIO16"
   txpin: "GPIO17"
+  gps_rxpin: "GPIO01"
   baud: "9600"
 
 esphome:
@@ -11,9 +12,12 @@ esphome:
   friendly_name: ${friendlyName}
 
 time:
-  - platform: homeassistant
-    id: homeassistant_time
-    timezone: ${timezone}
+#  - platform: homeassistant
+#    id: homeassistant_time
+#    timezone: ${timezone}
+  - platform: gps
+    id: gps_time
+	timezone: ${timezone}
 
 api:
   encryption:
@@ -51,5 +55,5 @@ packages:
         components/confs/select.yaml,
         components/confs/sensor.yaml,
         components/confs/textsensor.yaml,
-        components/confs/switch.yaml,
+        components/confs/gps.yaml,
       ]

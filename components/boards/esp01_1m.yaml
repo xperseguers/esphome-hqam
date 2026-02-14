@@ -9,16 +9,19 @@ logger:
   baud_rate: 0 # disable logging over uart
 
 uart:
-  id: uart_mower
-  rx_pin:
-    number: ${rxpin}
-  tx_pin:
-    number: ${txpin}
-  baud_rate: ${baud}
-  debug:
-    direction: BOTH
-    dummy_receiver: false
-    after:
-      delimiter: "\n"
-    sequence:
-      - lambda: UARTDebug::log_string(direction, bytes);
+  - id: uart_mower
+    rx_pin:
+      number: ${rxpin}
+    tx_pin:
+      number: ${txpin}
+    baud_rate: ${baud}
+    debug:
+      direction: BOTH
+      dummy_receiver: false
+      after:
+        delimiter: "\n"
+      sequence:
+        - lambda: UARTDebug::log_string(direction, bytes);
+  - id: uart_gps
+    rx_pin: ${gps_rxpin}
+	baud_rate: 9600
