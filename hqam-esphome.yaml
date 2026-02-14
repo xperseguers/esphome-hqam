@@ -1,11 +1,12 @@
 substitutions:
   name: "automower"
   friendlyName: "Automower"
-  timezone: "Europe/Stockholm"
+  timezone: "Europe/Zurich"
   rxpin: "GPIO16"
   txpin: "GPIO17"
   gps_rxpin: "GPIO01"
   baud: "9600"
+  osm_bbox: ""
 
 esphome:
   name: ${name}
@@ -17,7 +18,6 @@ time:
 #    timezone: ${timezone}
   - platform: gps
     id: gps_time
-	timezone: ${timezone}
 
 api:
   encryption:
