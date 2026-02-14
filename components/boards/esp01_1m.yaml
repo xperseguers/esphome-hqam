@@ -24,4 +24,4 @@ uart:
         - lambda: UARTDebug::log_string(direction, bytes);
   - id: uart_gps
     rx_pin: ${gps_rxpin}
-	baud_rate: 9600
+    baud_rate: 9600
