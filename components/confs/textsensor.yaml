@@ -33,9 +33,9 @@ text_sensor:
       return (std::string) str;
 
   - platform: template
-	id: "device_osm_url"
+    id: "device_osm_url"
     name: "OpenStreetMap URL"
-	lambda: |-
+    lambda: |-
       const std::string osmBboxVar = "${osm_bbox}";
       char str[1024];
       if ((id(gps_latitude).state != -1) && (id(gps_longitude).state != -1)) {
