@@ -30,8 +30,6 @@ gps:
     name: "GPS Satellites"
     id: gps_satellites
     force_update: true
-    on_value_range:
-      above: 1
     filters:
     - throttle: 500ms
 
