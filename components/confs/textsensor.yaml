@@ -26,7 +26,7 @@ text_sensor:
     lambda: |-
       char str[1024];
       if ((id(gps_latitude).state != -1) && (id(gps_longitude).state != -1)) {
-        sprintf(str,"https://www.google.com/maps/place/Current+Location/@%f,%f,18z/data=!3m1!4b1!4m5!3m4!1s0x6b126c2178de0f87:0x5b42610cb9db9393!8m2!3d%f!4d%f",id(gps_latitude).state,id(gps_longitude).state,id(gps_latitude).state,id(gps_longitude).state);
+        sprintf(str,"https://www.google.com/maps/place/%f,%f/@%f,%f,21z/data=!4m4!3m3!8m2!3d%f!4d%f",id(gps_latitude).state,id(gps_longitude).state,id(gps_latitude).state,id(gps_longitude).state,id(gps_latitude).state,id(gps_longitude).state);
       } else {
         sprintf(str,"https://www.google.com/maps/@50,-30,7.81z");
       }
@@ -39,7 +39,7 @@ text_sensor:
       const std::string osmBboxVar = "${osm_bbox}";
       char str[1024];
       if ((id(gps_latitude).state != -1) && (id(gps_longitude).state != -1)) {
-        sprintf(str,"https://www.openstreetmap.org/export/embed.html?bbox=%s&layer=mapnik&marker=%f%2C%f",osmBboxVar.c_str(),id(gps_latitude).state,id(gps_longitude).state);
+        sprintf(str,"https://www.openstreetmap.org/export/embed.html?bbox=%s&layer=mapnik&marker=%f%%2C%f",osmBboxVar.c_str(),id(gps_latitude).state,id(gps_longitude).state);
       } else {
         sprintf(str,"https://www.openstreetmap.org/export/embed.html?bbox=%s&layer=mapnik",osmBboxVar.c_str());
       }
