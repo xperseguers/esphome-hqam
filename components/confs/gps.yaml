@@ -4,44 +4,44 @@ gps:
 
   latitude:
     name: "GPS Latitude"
-	id: gps_latitude
-	force_update: true
+    id: gps_latitude
+    force_update: true
 
   longitude:
     name: "GPS Longitude"
-	id: gps_longitude
-	force_update: true
+    id: gps_longitude
+    force_update: true
 
   altitude:
     name: "GPS Altitude"
-	id: gps_altitude
-	force_update: true
+    id: gps_altitude
+    force_update: true
 
   speed:
     name: "GPS Speed"
-	id: gps_speed
-	force_update: true
-	filters:
+    id: gps_speed
+    force_update: true
+    filters:
     # - heartbeat: 500ms
-	# - throttle: 100ms
-	- debounce: 500ms
+    # - throttle: 100ms
+    - debounce: 500ms
 
   satellites:
     name: "GPS Satellites"
-	id: gps_satellites
-	force_update: true
-	on_value_range:
+    id: gps_satellites
+    force_update: true
+    on_value_range:
       above: 1
-	filters:
-	- throttle: 500ms
+    filters:
+    - throttle: 500ms
 
   course:
     name: "GPS Course"
-	id: gps_course
-	force_update: true
-	filters:
+    id: gps_course
+    force_update: true
+    filters:
     - throttle: 50ms
 
   hdop:
     name: "GPS HDOP"
-	id: gps_hdop
+    id: gps_hdop
