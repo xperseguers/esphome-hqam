@@ -365,7 +365,7 @@ namespace esphome
                 status_message = "Searching";
                 break;
             case 0x042E:
-                status = "returning";
+                status = "mowing/returning";
                 status_message = "Follow guide line";
                 break;
             case 0x0430:
