@@ -2,6 +2,7 @@ text_sensor:
   - platform: template
     id: "last_read_code"
     name: "Last received code"
+    icon: "mdi:hexadecimal"
     lambda: |-
       esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
       return {mower->get_last_code_received_text_sensor()->state};
@@ -9,6 +10,7 @@ text_sensor:
   - platform: template
     id: "current_mode"
     name: "Current Mode"
+    icon: "mdi:state-machine"
     lambda: |-
       esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
       return {mower->get_mode_text_sensor()->state};
@@ -16,6 +18,7 @@ text_sensor:
   - platform: template
     id: "status_sensor"
     name: "Status"
+    icon: "mdi:robot-mower"
     lambda: |-
       esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
       return {mower->get_status_text_sensor()->state};

@@ -4,6 +4,7 @@ button:
 
   - platform: template
     name: "Right Motor 0x8000"
+    icon: "mdi:cogs"
     on_press:
       - logger.log: Button Right Motor 0x8000
       - lambda: |-
@@ -12,6 +13,7 @@ button:
 
   - platform: template
     name: "Right Motor 0x0000"
+    icon: "mdi:cogs"
     on_press:
       - logger.log: Button Right Motor 0x0000
       - lambda: |-
@@ -20,6 +22,7 @@ button:
 
   - platform: template
     name: "Left Motor 0x8000"
+    icon: "mdi:cogs"
     on_press:
       - logger.log: Button Left Motor 0x8000
       - lambda: |-
@@ -28,6 +31,7 @@ button:
 
   - platform: template
     name: "Left Motor 0x0000"
+    icon: "mdi:cogs"
     on_press:
       - logger.log: Button Left Motor 0x0000
       - lambda: |-
