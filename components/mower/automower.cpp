@@ -252,6 +252,10 @@ namespace esphome
                 status = "error";
                 status_message = "LBV Low battery voltage";
                 break;
+            case 0x001e:
+                status = "error";
+                status_message = "Cutting system blocked";
+                break;
             case 0x03EA:
                 status = "mowing";
                 status_message = "MIP Mowing in progress";
