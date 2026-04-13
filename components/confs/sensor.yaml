@@ -2,6 +2,7 @@ sensor:
   - platform: template
     id: batteryLevelSensor
     name: "Battery level"
+    icon: "mdi:battery"
     unit_of_measurement: mAh
     lambda: |-
       esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
@@ -10,6 +11,7 @@ sensor:
   - platform: template
     id: chargingTimeSensor
     name: "Charging time"
+    icon: "mdi:battery-clock"
     unit_of_measurement: min
     lambda: |-
       esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
@@ -18,6 +20,7 @@ sensor:
   - platform: template
     id: mowingTimeSensor
     name: "Mowing time"
+    icon: "mdi:av-timer"
     unit_of_measurement: min
     lambda: |-
       esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
@@ -26,6 +29,7 @@ sensor:
   - platform: template
     id: batteryUsedSensor
     name: "Battery used"
+    icon: "mdi:battery"
     unit_of_measurement: mAh
     lambda: |-
       esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
@@ -34,6 +38,7 @@ sensor:
   - platform: template
     id: batteryVoltageSensor
     name: "Battery voltage"
+    icon: "mdi:battery-charging"
     unit_of_measurement: V
     lambda: |-
       esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
@@ -42,6 +47,7 @@ sensor:
   - platform: template
     id: batteryTemperatureSensor
     name: "Battery temperature"
+    icon: "mdi:thermometer-lines"
     unit_of_measurement: "°C"
     lambda: |-
       esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
@@ -50,6 +56,7 @@ sensor:
   - platform: template
     id: bladeMotorSpeedSensor
     name: "Blade Motor Speed"
+    icon: "mdi:saw-blade"
     unit_of_measurement: RPM
     lambda: |-
       esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
@@ -58,6 +65,7 @@ sensor:
   - platform: template
     id: firmwareVersionSensor
     name: "Firmware version"
+    icon: "mdi:chip"
     lambda: |-
       esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
       return {mower->get_firmware_version_sensor()->state};

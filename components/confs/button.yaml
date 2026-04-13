@@ -4,6 +4,7 @@ button:
 
   - platform: template
     name: "Right Motor 0x8000"
+    icon: "mdi:cogs"
     on_press:
       - logger.log: Button Right Motor 0x8000
       - lambda: |-
@@ -12,6 +13,7 @@ button:
 
   - platform: template
     name: "Right Motor 0x0000"
+    icon: "mdi:cogs"
     on_press:
       - logger.log: Button Right Motor 0x0000
       - lambda: |-
@@ -20,6 +22,7 @@ button:
 
   - platform: template
     name: "Left Motor 0x8000"
+    icon: "mdi:cogs"
     on_press:
       - logger.log: Button Left Motor 0x8000
       - lambda: |-
@@ -28,6 +31,7 @@ button:
 
   - platform: template
     name: "Left Motor 0x0000"
+    icon: "mdi:cogs"
     on_press:
       - logger.log: Button Left Motor 0x0000
       - lambda: |-
@@ -58,6 +62,7 @@ button:
 
   - platform: template
     name: "Key 0"
+    icon: "mdi:numeric-0-box-outline"
     on_press:
       - logger.log: Key 0
       - lambda: |-
@@ -65,6 +70,7 @@ button:
           mower->key_num(0x00);
   - platform: template
     name: "Key 1"
+    icon: "mdi:numeric-1-box-outline"
     on_press:
       - logger.log: Key 1
       - lambda: |-
@@ -72,6 +78,7 @@ button:
           mower->key_num(0x01);
   - platform: template
     name: "Key 2"
+    icon: "mdi:numeric-2-box-outline"
     on_press:
       - logger.log: Key 2
       - lambda: |-
@@ -79,6 +86,7 @@ button:
           mower->key_num(0x02);
   - platform: template
     name: "Key 3"
+    icon: "mdi:numeric-3-box-outline"
     on_press:
       - logger.log: Key 3
       - lambda: |-
@@ -86,6 +94,7 @@ button:
           mower->key_num(0x03);
   - platform: template
     name: "Key 4"
+    icon: "mdi:numeric-4-box-outline"
     on_press:
       - logger.log: Key 4
       - lambda: |-
@@ -93,6 +102,7 @@ button:
           mower->key_num(0x04);
   - platform: template
     name: "Key 5"
+    icon: "mdi:numeric-5-box-outline"
     on_press:
       - logger.log: Key 5
       - lambda: |-
@@ -100,6 +110,7 @@ button:
           mower->key_num(0x05);
   - platform: template
     name: "Key 6"
+    icon: "mdi:numeric-6-box-outline"
     on_press:
       - logger.log: Key 6
       - lambda: |-
@@ -107,6 +118,7 @@ button:
           mower->key_num(0x06);
   - platform: template
     name: "Key 7"
+    icon: "mdi:numeric-7-box-outline"
     on_press:
       - logger.log: Key 7
       - lambda: |-
@@ -114,6 +126,7 @@ button:
           mower->key_num(0x07);
   - platform: template
     name: "Key 8"
+    icon: "mdi:numeric-8-box-outline"
     on_press:
       - logger.log: Key 8
       - lambda: |-
@@ -121,6 +134,7 @@ button:
           mower->key_num(0x08);
   - platform: template
     name: "Key 9"
+    icon: "mdi:numeric-9-box-outline"
     on_press:
       - logger.log: Key 9
       - lambda: |-
@@ -128,6 +142,7 @@ button:
           mower->key_num(0x09);
   - platform: template
     name: "Key A"
+    icon: "mdi:alpha-a-circle-outline"
     on_press:
       - logger.log: Key A
       - lambda: |-
@@ -135,6 +150,7 @@ button:
           mower->key_num(0x0A);
   - platform: template
     name: "Key B"
+    icon: "mdi:alpha-b-circle-outline"
     on_press:
       - logger.log: Key B
       - lambda: |-
@@ -142,6 +158,7 @@ button:
           mower->key_num(0x0B);
   - platform: template
     name: "Key C"
+    icon: "mdi:alpha-c-circle-outline"
     on_press:
       - logger.log: Key C
       - lambda: |-
@@ -149,6 +166,7 @@ button:
           mower->key_num(0x0C);
   - platform: template
     name: "Key HOME"
+    icon: "mdi:home-circle-outline"
     on_press:
       - logger.log: Key Home
       - lambda: |-
@@ -156,6 +174,7 @@ button:
           mower->key_num(0x0D);
   - platform: template
     name: "Key MAN⁄AUTO"
+    icon: "mdi:play-pause"
     on_press:
       - logger.log: "Key MAN⁄AUTO"
       - lambda: |-
@@ -163,6 +182,7 @@ button:
           mower->key_num(0x0E);
   - platform: template
     name: "Key Cancel"
+    icon: "mdi:arrow-left-top"
     on_press:
       - logger.log: Key Cancel
       - lambda: |-
@@ -170,6 +190,7 @@ button:
           mower->key_num(0x0F);
   - platform: template
     name: "Key Up"
+    icon: "mdi:chevron-up"
     on_press:
       - logger.log: Key Up
       - lambda: |-
@@ -177,6 +198,7 @@ button:
           mower->key_num(0x10);
   - platform: template
     name: "Key Down"
+    icon: "mdi:chevron-down"
     on_press:
       - logger.log: Key Down
       - lambda: |-
@@ -184,6 +206,7 @@ button:
           mower->key_num(0x11);
   - platform: template
     name: "Key Yes"
+    icon: "mdi:check-circle-outline"
     on_press:
       - logger.log: Key Yes
       - lambda: |-
@@ -191,6 +214,7 @@ button:
           mower->key_num(0x12);
   - platform: template
     name: "Stop"
+    icon: "mdi:pause-octagon"
     on_press:
       - logger.log: Stop
       - lambda: |-
@@ -198,6 +222,7 @@ button:
           mower->set_stop(true);
   - platform: template
     name: "Reset Stop"
+    icon: "mdi:refresh-auto"
     on_press:
       - logger.log: Reset Stop
       - lambda: |-
