@@ -166,7 +166,7 @@ button:
           mower->key_num(0x0C);
   - platform: template
     name: "Key HOME"
-    icon: "mdi:home"
+    icon: "mdi:home-circle-outline"
     on_press:
       - logger.log: Key Home
       - lambda: |-
@@ -182,7 +182,7 @@ button:
           mower->key_num(0x0E);
   - platform: template
     name: "Key Cancel"
-    icon: "mdi:arrow-left"
+    icon: "mdi:arrow-left-top"
     on_press:
       - logger.log: Key Cancel
       - lambda: |-
@@ -206,7 +206,7 @@ button:
           mower->key_num(0x11);
   - platform: template
     name: "Key Yes"
-    icon: "mdi:check"
+    icon: "mdi:check-circle-outline"
     on_press:
       - logger.log: Key Yes
       - lambda: |-
