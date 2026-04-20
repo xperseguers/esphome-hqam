@@ -30,27 +30,27 @@ text_sensor:
       esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
       return {mower->get_status_message_text_sensor()->state};
 
-  - platform: template
-    id: "device_gm_url"
-    name: "Google Maps URL"
-    lambda: |-
-      char str[1024];
-      if ((id(gps_latitude).state != -1) && (id(gps_longitude).state != -1)) {
-        sprintf(str,"https://www.google.com/maps/place/%f,%f/@%f,%f,21z/data=!4m4!3m3!8m2!3d%f!4d%f",id(gps_latitude).state,id(gps_longitude).state,id(gps_latitude).state,id(gps_longitude).state,id(gps_latitude).state,id(gps_longitude).state);
-      } else {
-        sprintf(str,"https://www.google.com/maps/@50,-30,7.81z");
-      }
-      return (std::string) str;
+#  - platform: template
+#    id: "device_gm_url"
+#    name: "Google Maps URL"
+#    lambda: |-
+#      char str[1024];
+#      if ((id(gps_latitude).state != -1) && (id(gps_longitude).state != -1)) {
+#        sprintf(str,"https://www.google.com/maps/place/%f,%f/@%f,%f,21z/data=!4m4!3m3!8m2!3d%f!4d%f",id(gps_latitude).state,id(gps_longitude).state,id(gps_latitude).state,id(gps_longitude).state,id(gps_latitude).state,id(gps_longitude).state);
+#      } else {
+#        sprintf(str,"https://www.google.com/maps/@50,-30,7.81z");
+#      }
+#      return (std::string) str;
 
-  - platform: template
-    id: "device_osm_url"
-    name: "OpenStreetMap URL"
-    lambda: |-
-      const std::string osmBboxVar = "${osm_bbox}";
-      char str[1024];
-      if ((id(gps_latitude).state != -1) && (id(gps_longitude).state != -1)) {
-        sprintf(str,"https://www.openstreetmap.org/export/embed.html?bbox=%s&layer=mapnik&marker=%f%%2C%f",osmBboxVar.c_str(),id(gps_latitude).state,id(gps_longitude).state);
-      } else {
-        sprintf(str,"https://www.openstreetmap.org/export/embed.html?bbox=%s&layer=mapnik",osmBboxVar.c_str());
-      }
-      return (std::string) str;
+#  - platform: template
+#    id: "device_osm_url"
+#    name: "OpenStreetMap URL"
+#    lambda: |-
+#      const std::string osmBboxVar = "${osm_bbox}";
+#      char str[1024];
+#      if ((id(gps_latitude).state != -1) && (id(gps_longitude).state != -1)) {
+#        sprintf(str,"https://www.openstreetmap.org/export/embed.html?bbox=%s&layer=mapnik&marker=%f%%2C%f",osmBboxVar.c_str(),id(gps_latitude).state,id(gps_longitude).state);
+#      } else {
+#        sprintf(str,"https://www.openstreetmap.org/export/embed.html?bbox=%s&layer=mapnik",osmBboxVar.c_str());
+#      }
+#      return (std::string) str;
