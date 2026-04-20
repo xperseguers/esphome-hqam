@@ -73,6 +73,7 @@ sensor:
   - platform: template
     id: "lv95_e"
     name: "LV95 E"
+    icon: mdi:pan-horizontal
     lambda: |-
       double phi = id(gps_latitude).state * 3600.0;
       double delta = id(gps_longitude).state * 3600.0;
@@ -88,6 +89,7 @@ sensor:
   - platform: template
     id: "lv95_n"
     name: "LV95 N"
+    icon: mdi:pan-vertical
     lambda: |-
       double phi = id(gps_latitude).state * 3600.0;
       double delta = id(gps_longitude).state * 3600.0;
@@ -104,18 +106,22 @@ sensor:
   - platform: template
     id: "lv03_y"
     name: "LV03 Y"
+    icon: mdi:pan-horizontal
     lambda: |-
       return id(lv95_e).state - 2000000.0;
 
   - platform: template
     id: "lv03_x"
     name: "LV03 X"
+    icon: mdi:pan-vertical
     lambda: |-
       return id(lv95_n).state - 1000000.0;
 
   - platform: template
     id: "lv95_altitude"
     name: "LV95 Altitude"
+    unit_of_measurement: "m"
+    icon: mdi:image-filter-hdr-outline
     lambda: |-
       double phi = id(gps_latitude).state * 3600.0;
       double delta = id(gps_longitude).state * 3600.0;
