@@ -69,3 +69,69 @@ sensor:
     lambda: |-
       esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
       return {mower->get_firmware_version_sensor()->state};
+
+  - platform: template
+    id: "lv95_e"
+    name: "LV95 E"
+    unit_of_measurement: "m"
+    icon: mdi:pan-horizontal
+    lambda: |-
+      double phi = id(gps_latitude).state * 3600.0;
+      double delta = id(gps_longitude).state * 3600.0;
+      double phiPrime = (phi - 169028.66) / 10000;
+      double deltaPrime = (delta - 26782.5) / 10000;
+      double E = 2600072.37
+        + 211455.93 * deltaPrime
+        - 10938.51 * deltaPrime * phiPrime
+        - 0.36 * deltaPrime * pow(phiPrime, 2)
+        - 44.54 * pow(deltaPrime, 3);
+      return round(E * 100) / 100.0;
+
+  - platform: template
+    id: "lv95_n"
+    name: "LV95 N"
+    unit_of_measurement: "m"
+    icon: mdi:pan-vertical
+    lambda: |-
+      double phi = id(gps_latitude).state * 3600.0;
+      double delta = id(gps_longitude).state * 3600.0;
+      double phiPrime = (phi - 169028.66) / 10000;
+      double deltaPrime = (delta - 26782.5) / 10000;
+      double N = 1200147.07
+        + 308807.95 * phiPrime
+        + 3745.25 * pow(deltaPrime, 2)
+        + 76.63 * pow(phiPrime, 2)
+        - 194.56 * pow(deltaPrime, 2) * phiPrime
+        + 119.79 * pow(phiPrime, 3);
+      return round(N * 100) / 100.0;
+
+  - platform: template
+    id: "lv03_y"
+    name: "LV03 Y"
+    unit_of_measurement: "m"
+    icon: mdi:pan-horizontal
+    lambda: |-
+      return id(lv95_e).state - 2000000.0;
+
+  - platform: template
+    id: "lv03_x"
+    name: "LV03 X"
+    unit_of_measurement: "m"
+    icon: mdi:pan-vertical
+    lambda: |-
+      return id(lv95_n).state - 1000000.0;
+
+  - platform: template
+    id: "lv95_altitude"
+    name: "LV95 Altitude"
+    unit_of_measurement: "m"
+    icon: mdi:image-filter-hdr-outline
+    lambda: |-
+      double phi = id(gps_latitude).state * 3600.0;
+      double delta = id(gps_longitude).state * 3600.0;
+      double phiPrime = (phi - 169028.66) / 10000;
+      double deltaPrime = (delta - 26782.5) / 10000;
+      double h = id(gps_altitude).state - 49.55
+         + 2.73 * deltaPrime
+         + 6.94 * phiPrime;
+      return round(h);
