@@ -52,4 +52,8 @@ packages:
         components/confs/sensor.yaml,
         components/confs/textsensor.yaml,
         components/confs/switch.yaml,
+        # Optional: expose a native Home Assistant lawn_mower entity over MQTT.
+        # Uncomment the next line, add mqtt_broker/mqtt_username/mqtt_password to
+        # your secrets.yaml, and apply ha/lawn_mower.yaml in Home Assistant.
+        # components/confs/lawn_mower_mqtt.yaml,
       ]

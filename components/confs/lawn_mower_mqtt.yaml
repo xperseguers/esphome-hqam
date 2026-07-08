@@ -1,0 +1,74 @@
+# Home Assistant "lawn_mower" domain bridge over MQTT (Option A).
+#
+# ESPHome's native API has no lawn_mower entity type, so the device cannot
+# advertise itself as a native HA mower over the API. This optional package
+# adds a *minimal* MQTT link that is used ONLY for the lawn_mower entity:
+# every sensor/button/select keeps talking to HA over the native API as before.
+#
+# To enable:
+#   1. Add this file to the `packages:` -> `files:` list in your device YAML
+#      (see hqam-esphome.yaml for the commented entry).
+#   2. Provide these secrets in your ESPHome `secrets.yaml`:
+#        mqtt_broker: "192.168.x.x"
+#        mqtt_username: "esphome"
+#        mqtt_password: "..."
+#   3. Add the matching Home Assistant configuration from ha/lawn_mower.yaml.
+#
+# The MQTT topic prefix defaults to "automower"; override it via substitutions
+# if you run more than one mower.
+
+substitutions:
+  mqtt_topic_prefix: "automower"
+
+mqtt:
+  broker: !secret mqtt_broker
+  username: !secret mqtt_username
+  password: !secret mqtt_password
+
+  # We keep the native API for everything else, so do NOT let MQTT auto-
+  # discovery create a duplicate set of entities in Home Assistant.
+  discovery: false
+
+  # Drives the HA entity's availability (online/offline) via birth/last-will.
+  birth_message:
+    topic: "${mqtt_topic_prefix}/status"
+    payload: "online"
+    retain: true
+  will_message:
+    topic: "${mqtt_topic_prefix}/status"
+    payload: "offline"
+    retain: true
+
+  # Commands published by the HA lawn_mower actions (start_mowing / pause / dock).
+  on_message:
+    - topic: "${mqtt_topic_prefix}/command"
+      then:
+        - lambda: |-
+            auto *m = (esphome::mower::Automower *) id(mower_id);
+            if (x == "start_mowing") {
+              m->set_stop(false);      // clear a previous STOP latch before resuming
+              m->set_mode("AUTO");
+            } else if (x == "dock") {
+              m->set_mode("HOME");
+            } else if (x == "pause") {
+              m->set_stop(true);
+            }
+
+# Publish the current HA lawn_mower activity, mapped from the mower status to
+# one of MQTT's four accepted values: mowing | paused | docked | error.
+# Retained + periodic so the state is re-asserted after a broker reconnect.
+interval:
+  - interval: 10s
+    then:
+      - mqtt.publish:
+          topic: "${mqtt_topic_prefix}/activity"
+          retain: true
+          payload: !lambda |-
+            auto *m = (esphome::mower::Automower *) id(mower_id);
+            std::string s = m->get_status_text_sensor()->state;
+            if (s == "error") return std::string("error");
+            if (s == "paused") return std::string("paused");
+            if (s == "docked" || s == "idle") return std::string("docked");
+            // mowing, returning, "mowing/returning", ... -> the mower is active.
+            // MQTT lawn_mower has no "returning" activity, so it collapses to "mowing".
+            return std::string("mowing");

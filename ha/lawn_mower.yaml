@@ -1,0 +1,39 @@
+# Home Assistant configuration for the native lawn_mower entity (Option A).
+#
+# This is the Home Assistant side of components/confs/lawn_mower_mqtt.yaml.
+# Add it under `mqtt:` in your configuration.yaml (or include it as an MQTT
+# package). Requires the MQTT integration to be set up in Home Assistant and
+# pointed at the same broker the ESP publishes to.
+#
+# The topic prefix must match `mqtt_topic_prefix` on the ESPHome side
+# (default: "automower").
+
+mqtt:
+  - lawn_mower:
+      name: Automower
+      unique_id: automower_mower
+
+      # State: the ESP publishes mowing | paused | docked | error here.
+      activity_state_topic: "automower/activity"
+      activity_value_template: "{{ value }}"
+
+      # Actions: HA publishes the fixed payloads below, which the ESP routes
+      # to set_mode()/set_stop() (see the on_message block in the bridge).
+      start_mowing_command_topic: "automower/command"
+      start_mowing_command_template: "start_mowing"
+      pause_command_topic: "automower/command"
+      pause_command_template: "pause"
+      dock_command_topic: "automower/command"
+      dock_command_template: "dock"
+
+      # Availability driven by the ESP's MQTT birth/last-will message.
+      availability:
+        - topic: "automower/status"
+          payload_available: "online"
+          payload_not_available: "offline"
+
+      device:
+        identifiers: automower_esp
+        name: Automower
+        manufacturer: Husqvarna
+        model: "220/230 AC"
