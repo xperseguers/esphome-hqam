@@ -268,6 +268,10 @@ namespace esphome
                 status = "error";
                 status_message = "Right wheel motor blocked";
                 break;
+            case 0x0018:
+                status = "error";
+                status_message = "Wheel slip";
+                break;                
             case 0x000C:
                 status = "error";
                 status_message = "No loop signal";
