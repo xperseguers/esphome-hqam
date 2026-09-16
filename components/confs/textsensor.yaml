@@ -77,3 +77,20 @@ text_sensor:
         sprintf(buf, "%d min", mins);
       }
       return (std::string)buf;
+
+  - platform: template
+    id: "mower_clock"
+    name: "Mower clock"
+    icon: "mdi:clock"
+    lambda: |-
+      esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
+      float sec_f = mower->get_register(0x36B1);
+      float min_f = mower->get_register(0x36B3);
+      float hour_f = mower->get_register(0x36B5);
+      if (std::isnan(sec_f) || std::isnan(min_f) || std::isnan(hour_f)) return {};
+      int sec = (int)sec_f;
+      int min = (int)min_f;
+      int hour = (int)hour_f;
+      char buf[32];
+      snprintf(buf, sizeof(buf), "%02d:%02d:%02d", hour, min, sec);
+      return (std::string)buf;
