@@ -52,4 +52,5 @@ packages:
         components/confs/sensor.yaml,
         components/confs/textsensor.yaml,
         components/confs/switch.yaml,
+        components/confs/datetime.yaml,
       ]
