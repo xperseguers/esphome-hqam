@@ -30,6 +30,45 @@ text_sensor:
       esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
       return {mower->get_status_message_text_sensor()->state};
 
+  - platform: template
+    id: "charging_time_formatted"
+    name: "Charging time"
+    icon: "mdi:battery-clock"
+    lambda: |-
+      int total_min = (int)id(chargingTimeSensor).state;
+      int days = total_min / 1440;
+      int hours = (total_min % 1440) / 60;
+      int mins = total_min % 60;
+      char buf[64];
+      if (days > 0) {
+        sprintf(buf, "%d d, %d h, %d min", days, hours, mins);
+      } else if (hours > 0) {
+        sprintf(buf, "%d h, %d min", hours, mins);
+      } else {
+        sprintf(buf, "%d min", mins);
+      }
+      return (std::string)buf;
+
+  - platform: template
+    id: "mowing_time_formatted"
+    name: "Mowing time"
+    icon: "mdi:av-timer"
+    lambda: |-
+      int total_min = (int)id(mowingTimeSensor).state;
+      int days = total_min / 1440;
+      int hours = (total_min % 1440) / 60;
+      int mins = total_min % 60;
+      char buf[64];
+      if (days > 0) {
+        sprintf(buf, "%d d, %d h, %d min", days, hours, mins);
+      } else if (hours > 0) {
+        sprintf(buf, "%d h, %d min", hours, mins);
+      } else {
+        sprintf(buf, "%d min", mins);
+      }
+      return (std::string)buf;
+
+
 #  - platform: template
 #    id: "device_gm_url"
 #    name: "Google Maps URL"
