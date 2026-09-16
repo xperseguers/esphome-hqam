@@ -13,7 +13,9 @@ text_sensor:
     icon: "mdi:state-machine"
     lambda: |-
       esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
-      return {mower->get_mode_text_sensor()->state};
+      std::string s = mower->get_mode_text_sensor()->state;
+      if (s.empty()) return {};
+      return {s};
 
   - platform: template
     id: "status_sensor"
@@ -21,21 +23,27 @@ text_sensor:
     icon: "mdi:robot-mower"
     lambda: |-
       esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
-      return {mower->get_status_text_sensor()->state};
+      std::string s = mower->get_status_text_sensor()->state;
+      if (s.empty()) return {};
+      return {s};
 
   - platform: template
     id: "status_message_sensor"
     name: "Status Message"
     lambda: |-
       esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
-      return {mower->get_status_message_text_sensor()->state};
+      std::string s = mower->get_status_message_text_sensor()->state;
+      if (s.empty()) return {};
+      return {s};
 
   - platform: template
     id: "charging_time_formatted"
     name: "Charging time"
     icon: "mdi:battery-clock"
     lambda: |-
-      int total_min = (int)id(chargingTimeSensor).state;
+      float total_min_f = id(chargingTimeSensor).state;
+      if (std::isnan(total_min_f)) return {};
+      int total_min = (int)total_min_f;
       int days = total_min / 1440;
       int hours = (total_min % 1440) / 60;
       int mins = total_min % 60;
@@ -54,7 +62,9 @@ text_sensor:
     name: "Mowing time"
     icon: "mdi:av-timer"
     lambda: |-
-      int total_min = (int)id(mowingTimeSensor).state;
+      float total_min_f = id(mowingTimeSensor).state;
+      if (std::isnan(total_min_f)) return {};
+      int total_min = (int)total_min_f;
       int days = total_min / 1440;
       int hours = (total_min % 1440) / 60;
       int mins = total_min % 60;
