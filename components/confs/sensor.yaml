@@ -54,6 +54,18 @@ sensor:
       return {mower->get_battery_temperature_sensor()->state};
 
   - platform: template
+    id: batteryPercentageSensor
+    name: "Battery percentage"
+    icon: "mdi:battery"
+    unit_of_measurement: "%"
+    accuracy_decimals: 1
+    lambda: |-
+      if (id(batteryUsedSensor).state > 0) {
+        return (id(batteryLevelSensor).state / id(batteryUsedSensor).state) * 100.0;
+      }
+      return 0.0;
+
+  - platform: template
     id: bladeMotorSpeedSensor
     name: "Blade Motor Speed"
     icon: "mdi:saw-blade"
