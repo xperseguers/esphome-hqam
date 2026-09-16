@@ -61,13 +61,21 @@ namespace esphome
 
         void Automower::update()
         {
-            pollingId_ = (pollingId_ + 1) % pollingCommandList.size();
-            sendCommands(pollingId_);
+            // Legacy: do nothing. Pacing is now handled in loop().
         }
 
         void Automower::loop()
         {
             serviceBus();  // drain write queue before checking UART
+            if (write_queue_.empty() && !awaiting_reply_)
+            {
+                uint32_t now = millis();
+                if (now - last_send_time_ >= get_update_interval())
+                {
+                    pollingId_ = (pollingId_ + 1) % pollingCommandList.size();
+                    sendCommands(pollingId_);
+                }
+            }
             checkUartRead();
         }
 
