@@ -85,3 +85,154 @@ sensor:
       float v = mower->get_register(0x3390);
       if (std::isnan(v)) return {};
       return {v};
+
+  - platform: template
+    id: batteryChargedSensor
+    name: "Battery charged"
+    icon: "mdi:battery-check"
+    unit_of_measurement: mAh
+    lambda: |-
+      esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
+      float v = mower->get_register(0x01EF);
+      if (std::isnan(v)) return {};
+      return {v};
+
+  - platform: template
+    id: batteryCapacitySensor
+    name: "Battery capacity"
+    icon: "mdi:battery-arrow-down"
+    unit_of_measurement: mAh
+    lambda: |-
+      esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
+      float v = mower->get_register(0x00B1);
+      if (std::isnan(v)) return {};
+      return {v};
+
+  - platform: template
+    id: batteryReturnSensor
+    name: "Battery return"
+    icon: "mdi:battery-reset"
+    unit_of_measurement: mAh
+    lambda: |-
+      esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
+      float v = mower->get_register(0x01F0);
+      if (std::isnan(v)) return {};
+      return {v};
+
+  - platform: template
+    id: chargeCycleMinSensor
+    name: "Charge cycle minutes"
+    icon: "mdi:timer-sand"
+    unit_of_measurement: min
+    lambda: |-
+      esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
+      float v = mower->get_register(0x0234);
+      if (std::isnan(v)) return {};
+      return {v};
+
+  - platform: template
+    id: batteryTempLoadSensor
+    name: "Battery temp (charging)"
+    icon: "mdi:thermometer"
+    unit_of_measurement: "°C"
+    lambda: |-
+      esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
+      float v = mower->get_register(0x0235);
+      if (std::isnan(v)) return {};
+      return {v};
+
+  - platform: template
+    id: tempNextCheckSensor
+    name: "Temp next check (s)"
+    icon: "mdi:timer"
+    unit_of_measurement: s
+    lambda: |-
+      esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
+      float v = mower->get_register(0x0236);
+      if (std::isnan(v)) return {};
+      return {v};
+
+  - platform: template
+    id: cuttingTimeSensor
+    name: "Cutting time"
+    icon: "mdi:av-timer"
+    unit_of_measurement: min
+    lambda: |-
+      esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
+      float v = mower->get_register(0x0038);
+      if (std::isnan(v)) return {};
+      return {v};
+
+  - platform: template
+    id: loopQualitySensor
+    name: "Loop quality"
+    icon: "mdi:signal"
+    unit_of_measurement: "%"
+    lambda: |-
+      esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
+      float v = mower->get_register(0x01B9);
+      if (std::isnan(v)) return {};
+      return {v};
+
+  - platform: template
+    id: squareStatusSensor
+    name: "Square status"
+    icon: "mdi:square"
+    lambda: |-
+      esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
+      float v = mower->get_register(0x0138);
+      if (std::isnan(v)) return {};
+      return {v};
+
+  - platform: template
+    id: squarePercentSensor
+    name: "Square percent"
+    icon: "mdi:percent"
+    unit_of_measurement: "%"
+    lambda: |-
+      esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
+      float v = mower->get_register(0x0134);
+      if (std::isnan(v)) return {};
+      return {v};
+
+  - platform: template
+    id: squareRefSensor
+    name: "Square reference"
+    icon: "mdi:square"
+    lambda: |-
+      esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
+      float v = mower->get_register(0x0137);
+      if (std::isnan(v)) return {};
+      return {v};
+
+  - platform: template
+    id: speedRightSensor
+    name: "Right wheel speed"
+    icon: "mdi:speedometer"
+    unit_of_measurement: RPM
+    lambda: |-
+      esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
+      float v = mower->get_register(0x24BF);
+      if (std::isnan(v)) return {};
+      return {v};
+
+  - platform: template
+    id: speedLeftSensor
+    name: "Left wheel speed"
+    icon: "mdi:speedometer"
+    unit_of_measurement: RPM
+    lambda: |-
+      esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
+      float v = mower->get_register(0x24C0);
+      if (std::isnan(v)) return {};
+      return {v};
+
+  - platform: template
+    id: languageSensor
+    name: "Language version"
+    icon: "mdi:translate"
+    lambda: |-
+      esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
+      float v = mower->get_register(0x3AC0);
+      if (std::isnan(v)) return {};
+      return {v};
