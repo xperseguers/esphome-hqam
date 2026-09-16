@@ -147,3 +147,28 @@ sensor:
          + 2.73 * deltaPrime
          + 6.94 * phiPrime;
       return round(h);
+
+
+# --- Diagnostics ---
+
+binary_sensor:
+  - platform: template
+    id: low_battery
+    name: "Low Battery"
+    icon: mdi:battery-alert
+    lambda: |-
+      if (id(batteryPercentageSensor).state < 20.0) {
+        return true;
+      }
+      return false;
+    entity_category: diagnostic
+
+  - platform: template
+    id: charging
+    name: "Charging"
+    icon: mdi:battery-charging
+    lambda: |-
+      auto *mower = (esphome::mower::Automower *) id(mower_id);
+      std::string msg = mower->get_status_message_text_sensor()->state;
+      return msg == "Charging";
+    entity_category: diagnostic
