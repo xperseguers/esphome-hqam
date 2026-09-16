@@ -57,7 +57,10 @@ namespace esphome
         template_::TemplateTextSensor *Automower::get_status_text_sensor() const { return status_text_sensor_; }
         template_::TemplateTextSensor *Automower::get_status_message_text_sensor() const { return status_message_text_sensor_; }
 
-        void Automower::setup() {}
+        void Automower::setup()
+        {
+            ESP_LOGCONFIG("Automower", "Register cache initialized with %zu entries", register_values_.capacity());
+        }
 
         void Automower::update()
         {
