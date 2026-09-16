@@ -5,8 +5,11 @@
 #include "esphome/components/template/sensor/template_sensor.h"
 #include "esphome/components/template/text_sensor/template_text_sensor.h"
 
+#include <algorithm>
 #include <list>
 #include <string>
+#include <utility>
+#include <vector>
 
 namespace esphome
 {
@@ -46,6 +49,11 @@ namespace esphome
       template_::TemplateTextSensor *get_status_text_sensor() const;
       template_::TemplateTextSensor *get_status_message_text_sensor() const;
 
+      // Generic access to the last received value of any register, for the
+      // template sensors/numbers defined in yaml. Returns NaN when the register
+      // hasn't been read yet, so the lambda can skip publishing (return {}).
+      float get_register(uint16_t addr, bool is_signed = false);
+
       void setup() override;
       void update() override;
       void loop() override;
@@ -77,6 +85,11 @@ namespace esphome
       template_::TemplateTextSensor *status_text_sensor_ = nullptr;
       template_::TemplateTextSensor *status_message_text_sensor_ = nullptr;
       template_::TemplateTextSensor *last_code_received_text_sensor_ = nullptr;
+
+      // Register cache: sorted vector of (address, value) pairs.
+      // Replaces std::map for better memory efficiency with ~50 entries.
+      std::vector<std::pair<uint16_t, uint16_t>> register_values_;
+      void store_register(uint16_t addr, uint16_t val);
 
       static constexpr uint8_t MAN_DATA[5] = {0x0F, 0x81, 0x2C, 0x00, 0x00};
       static constexpr uint8_t AUTO_DATA[5] = {0x0F, 0x81, 0x2C, 0x00, 0x01};

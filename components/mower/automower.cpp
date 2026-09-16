@@ -161,37 +161,46 @@ namespace esphome
                 case 0x01EC:
                     if (charging_time_sensor_)
                         charging_time_sensor_->publish_state(val);
+                    store_register(0x01EC, val);
                     break;
                 case 0x0056:
                     if (mowing_time_sensor_)
                         mowing_time_sensor_->publish_state(val);
+                    store_register(0x0056, val);
                     break;
                 case 0x01EF:
                     if (battery_level_sensor_)
                         battery_level_sensor_->publish_state(val);
+                    store_register(0x01EF, val);
                     break;
                 case 0x0233:
                     if (battery_temperature_sensor_)
                         battery_temperature_sensor_->publish_state(val);
+                    store_register(0x0233, val);
                     break;
                 case 0x2EE0:
                     if (battery_used_sensor_)
                         battery_used_sensor_->publish_state(val);
+                    store_register(0x2EE0, val);
                     break;
                 case 0x2EEA:
                     if (blade_motor_speed_sensor_)
                         blade_motor_speed_sensor_->publish_state(val);
+                    store_register(0x2EEA, val);
                     break;
                 case 0x2EF4:
                     if (battery_voltage_sensor_)
                         battery_voltage_sensor_->publish_state(val / 1000.0f);
+                    store_register(0x2EF4, val);
                     break;
                 case 0x3390:
                     if (firmware_version_sensor_)
                         firmware_version_sensor_->publish_state(val);
+                    store_register(0x3390, val);
                     break;
                 case 0x012F:
                     setStopStatusFromCode(val);
+                    store_register(0x012F, val);
                     break;
                 default:
                     ESP_LOGW("Automower", "Unhandled address: 0x%04X with value 0x%04X", addr, val);
@@ -394,6 +403,37 @@ namespace esphome
             char s[16];
             sprintf(s, "%04x", v);
             return std::string(s);
+        }
+
+        void Automower::store_register(uint16_t addr, uint16_t val)
+        {
+            auto it = std::lower_bound(register_values_.begin(), register_values_.end(), addr,
+                                       [](const std::pair<uint16_t, uint16_t> &e, uint16_t a) {
+                                           return e.first < a;
+                                       });
+            if (it != register_values_.end() && it->first == addr)
+                it->second = val;
+            else
+                register_values_.insert(it, std::make_pair(addr, val));
+        }
+
+        float Automower::get_register(uint16_t addr, bool is_signed)
+        {
+            auto it = std::lower_bound(register_values_.begin(), register_values_.end(), addr,
+                                       [](const std::pair<uint16_t, uint16_t> &e, uint16_t a) {
+                                           return e.first < a;
+                                       });
+            if (it != register_values_.end() && it->first == addr)
+            {
+                uint16_t val = it->second;
+                if (is_signed)
+                {
+                    int16_t signed_val = static_cast<int16_t>(val);
+                    return static_cast<float>(signed_val);
+                }
+                return static_cast<float>(val);
+            }
+            return NAN;
         }
 
     } // namespace automower
