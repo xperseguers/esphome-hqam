@@ -78,6 +78,13 @@ namespace esphome
       uint32_t last_send_time_ = 0;
       static constexpr uint32_t UART_REPLY_TIMEOUT_MS = 2000;
 
+      // Write queue: user writes are queued and drained by serviceBus()
+      // before the next poll. Prevents collisions with poll replies.
+      struct Frame { uint8_t b[5]; };
+      std::vector<Frame> write_queue_;
+      void queueFrame(const uint8_t *data);
+      void serviceBus();
+
       template_::TemplateSensor *battery_current_sensor_ = nullptr;
       template_::TemplateSensor *battery_level_sensor_ = nullptr;
       template_::TemplateSensor *battery_temperature_sensor_ = nullptr;

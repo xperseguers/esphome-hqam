@@ -65,25 +65,29 @@ namespace esphome
             sendCommands(pollingId_);
         }
 
-        void Automower::loop() { checkUartRead(); }
+        void Automower::loop()
+        {
+            serviceBus();  // drain write queue before checking UART
+            checkUartRead();
+        }
 
         void Automower::set_mode(const std::string &value)
         {
             if (value == "MAN")
             {
-                write_array(MAN_DATA, sizeof(MAN_DATA));
+                queueFrame(MAN_DATA);
             }
             else if (value == "AUTO")
             {
-                write_array(AUTO_DATA, sizeof(AUTO_DATA));
+                queueFrame(AUTO_DATA);
             }
             else if (value == "HOME")
             {
-                write_array(HOME_DATA, sizeof(HOME_DATA));
+                queueFrame(HOME_DATA);
             }
             else if (value == "DEMO")
             {
-                write_array(DEMO_DATA, sizeof(DEMO_DATA));
+                queueFrame(DEMO_DATA);
             }
             else
             {
@@ -93,27 +97,49 @@ namespace esphome
 
         void Automower::set_stop(bool stop)
         {
-            write_array(stop ? STOP_ON_DATA : STOP_OFF_DATA, 5);
+            queueFrame(stop ? STOP_ON_DATA : STOP_OFF_DATA);
         }
 
         void Automower::set_left_motor(int value)
         {
             uint8_t data[5] = {0x0F, 0x92, 0x23, static_cast<uint8_t>((value >> 8) & 0xFF), static_cast<uint8_t>(value & 0xFF)};
-            write_array(data, 5);
+            queueFrame(data);
         }
 
         void Automower::set_right_motor(int value)
         {
             uint8_t data[5] = {0x0F, 0x92, 0x03, static_cast<uint8_t>((value >> 8) & 0xFF), static_cast<uint8_t>(value & 0xFF)};
-            write_array(data, 5);
+            queueFrame(data);
         }
 
-        void Automower::key_back() { write_array(KEY_BACK, 5); }
-        void Automower::key_yes() { write_array(KEY_YES, 5); }
+        void Automower::key_back() { queueFrame(KEY_BACK); }
+        void Automower::key_yes() { queueFrame(KEY_YES); }
         void Automower::key_num(uint8_t num)
         {
             uint8_t data[5] = {0x0F, 0x80, 0x5F, 0x00, num};
-            write_array(data, 5);
+            queueFrame(data);
+        }
+
+        void Automower::queueFrame(const uint8_t *data)
+        {
+            write_queue_.push_back({{data[0], data[1], data[2], data[3], data[4]}});
+        }
+
+        void Automower::serviceBus()
+        {
+            while (!write_queue_.empty() && _writable)
+            {
+                auto frame = write_queue_.front();
+                write_queue_.erase(write_queue_.begin());
+                ESP_LOGD("Automower", "UART TX (queue): %02X %02X %02X %02X %02X",
+                         frame.b[0], frame.b[1], frame.b[2], frame.b[3], frame.b[4]);
+                write_array(frame.b, 5);
+                last_send_time_ = millis();
+                _writable = false;
+                // User writes don't expect replies; just mark bus busy.
+                expected_addr_ = 0;
+                awaiting_reply_ = true;
+            }
         }
 
         void Automower::sendCommands(int index)
