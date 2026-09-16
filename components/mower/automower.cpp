@@ -199,6 +199,17 @@ namespace esphome
                 ESP_LOGD("Automower", "UART RX: %02X %02X %02X %02X %02X", readData[0], readData[1], readData[2], readData[3], readData[4]);
                 ESP_LOGD("Automower", "Decoded: addr=0x%04X val=0x%04X", addr, (readData[4] << 8) | readData[3]);
 
+                // Publish the raw frame as last received code.
+                // Address bytes keep the write bit so 812C (ack'd write) is
+                // distinguishable from 012C (read reply).
+                if (last_code_received_text_sensor_)
+                {
+                    char buf[32];
+                    snprintf(buf, sizeof(buf), "%02X%02X=%02X%02X",
+                             readData[1], readData[2], readData[4], readData[3]);
+                    last_code_received_text_sensor_->publish_state(buf);
+                }
+
                 switch (addr)
                 {
                 case 0x012C:
