@@ -9,6 +9,27 @@ It may be compatible with other models from the same generation.
 
 ## Hardware
 
+### Minimal setup (fine enough)
+
+A simple ESP8266 board wired directly to the service port works fine.
+One user has run this for over a year without issues using:
+
+| Part             | Value                                  |
+| ---------------- | -------------------------------------- |
+| Board            | D1 Mini (ESP8266)                      |
+| RX pin           | GPIO2                                  |
+| TX pin           | GPIO0                                  |
+| Power            | 5 V from service port, to board 5V pin |
+| GND              | Common ground                          |
+
+No capacitors, no PTC fuse, no level shifters. Just three wires.
+
+### Production-grade setup (defensive best practice)
+
+For a permanent installation you may want to protect the robot's motherboard
+from accidental shorts or power spikes. The following adds protection and
+decoupling:
+
 | Part             | Value                                                   |
 | ---------------- | --------------------------------------------------------- |
 | Board            | ESP32-DevKitC V4 with WROOM-32U, external u.FL antenna    |
@@ -30,7 +51,22 @@ confirm each conductor with a multimeter before connecting. The 18V
 conductor sits on the same connector and will destroy the board if
 misconnected.
 
-## Wiring Diagram
+## Wiring Diagrams
+
+### Minimal (D1 Mini)
+
+```
+ Service port                              D1 Mini
+      5V  ────────────────────────────────────  5V
+      GND ────────────────────────────────────  GND
+      Tx  ────────────────────────────────────  D3 (GPIO0)  [RX]
+      Rx  ◄───────────────────────────────────  D4 (GPIO2)  [TX]
+
+      3V3 ──  not used
+      18V ──  not connected
+```
+
+### Production-grade (ESP32 DevKitC)
 
 ```
  Motherboard, service port                          ESP32-DevKitC V4
@@ -53,7 +89,7 @@ misconnected.
       18V ──  trimmed and insulated
 ```
 
-## Why the components are placed where they are
+## Why the production-grade components are placed where they are
 
 **5 V instead of 3.3 V.** The board's LDO needs voltage headroom to
 regulate. The robot's 3.3 V line is also under-dimensioned.
@@ -78,9 +114,9 @@ misconnected.
 **Ventilation holes.** The board sits in an enclosed box on a machine
 that runs in the sun.
 
-**UART2, not UART0.** GPIO1/GPIO3 are shared with the USB-serial chip.
-The bootloader writes text on TX0 at every boot, which would go straight
-into the robot's diagnostic port.
+**UART2, not UART0 (ESP32).** GPIO1/GPIO3 are shared with the USB-serial
+chip. The bootloader writes text on TX0 at every boot, which would go
+straight into the robot's diagnostic port.
 
 **External u.FL antenna.** The robot is practically a grounded sheet-metal
 and plastic box that dampens a short-mounted antenna.
