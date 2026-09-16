@@ -71,6 +71,13 @@ namespace esphome
       bool _writable = true;
       bool stopStatus = false;
 
+      // Reply-waiting: only release the bus when the expected address arrives.
+      // Prevents keypad traffic from incorrectly releasing the bus.
+      bool awaiting_reply_ = false;
+      uint16_t expected_addr_ = 0;
+      uint32_t last_send_time_ = 0;
+      static constexpr uint32_t UART_REPLY_TIMEOUT_MS = 2000;
+
       template_::TemplateSensor *battery_current_sensor_ = nullptr;
       template_::TemplateSensor *battery_level_sensor_ = nullptr;
       template_::TemplateSensor *battery_temperature_sensor_ = nullptr;

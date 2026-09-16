@@ -129,7 +129,11 @@ namespace esphome
                 std::advance(it, index);
                 ESP_LOGD("Automower", "UART TX: %02X %02X %02X %02X %02X", (*it)[0], (*it)[1], (*it)[2], (*it)[3], (*it)[4]);
                 write_array(*it, 5);
+                last_send_time_ = millis();
                 _writable = false;
+                // Record the expected reply address (bits 6-0 of bytes 1-2).
+                expected_addr_ = (((*it)[1] & 0x7F) << 8) | (*it)[2];
+                awaiting_reply_ = true;
             }
         }
 
@@ -141,14 +145,25 @@ namespace esphome
             {
                 uint8_t readData[5];
                 read_array(readData, 5);
-                _writable = true;
+                uint16_t addr = ((readData[1] & 0x7F) << 8) | readData[2];
+
+                // Only release the bus when the expected address arrives.
+                // Keypad traffic from the mower falls through to the timeout.
+                if (awaiting_reply_ && addr == expected_addr_)
+                {
+                    _writable = true;
+                    awaiting_reply_ = false;
+                }
+                else if (awaiting_reply_ && millis() - last_send_time_ > UART_REPLY_TIMEOUT_MS)
+                {
+                    // Timeout: no reply arrived in time, release the bus.
+                    ESP_LOGW("Automower", "UART reply timeout for 0x%04X", expected_addr_);
+                    _writable = true;
+                    awaiting_reply_ = false;
+                }
 
                 ESP_LOGD("Automower", "UART RX: %02X %02X %02X %02X %02X", readData[0], readData[1], readData[2], readData[3], readData[4]);
-
-                uint16_t addr = ((readData[1] & 0x7F) << 8) | readData[2];
-                uint16_t val = (readData[4] << 8) | readData[3];
-
-                ESP_LOGD("Automower", "Decoded: addr=0x%04X val=0x%04X", addr, val);
+                ESP_LOGD("Automower", "Decoded: addr=0x%04X val=0x%04X", addr, (readData[4] << 8) | readData[3]);
 
                 switch (addr)
                 {
