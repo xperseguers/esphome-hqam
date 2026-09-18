@@ -76,8 +76,8 @@ sensor:
     unit_of_measurement: "%"
     accuracy_decimals: 1
     lambda: |-
-      if (id(batteryUsedSensor).state > 0) {
-        return (id(batteryLevelSensor).state / id(batteryUsedSensor).state) * 100.0;
+      if (id(batteryCapacitySensor).state > 0) {
+        return (id(batteryLevelSensor).state / id(batteryCapacitySensor).state) * 100.0;
       }
       return 0.0;
 
