@@ -155,6 +155,7 @@ sensor:
     name: "Temp next check (s)"
     icon: "mdi:timer"
     unit_of_measurement: s
+    entity_category: diagnostic
     lambda: |-
       esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
       float v = mower->get_register(0x0236);
