@@ -2,41 +2,8 @@ button:
   - platform: restart
     name: "Restart"
 
-  - platform: template
-    name: "Right Motor 0x8000"
-    icon: "mdi:cogs"
-    on_press:
-      - logger.log: Button Right Motor 0x8000
-      - lambda: |-
-          esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
-          mower->set_right_motor(0x8000);
-
-  - platform: template
-    name: "Right Motor 0x0000"
-    icon: "mdi:cogs"
-    on_press:
-      - logger.log: Button Right Motor 0x0000
-      - lambda: |-
-          esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
-          mower->set_right_motor(0x0000);
-
-  - platform: template
-    name: "Left Motor 0x8000"
-    icon: "mdi:cogs"
-    on_press:
-      - logger.log: Button Left Motor 0x8000
-      - lambda: |-
-          esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
-          mower->set_left_motor(0x8000);
-
-  - platform: template
-    name: "Left Motor 0x0000"
-    icon: "mdi:cogs"
-    on_press:
-      - logger.log: Button Left Motor 0x0000
-      - lambda: |-
-          esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
-          mower->set_left_motor(0x0000);
+  # Wheel motor buttons removed: a stray press moves a wheel on a
+  # machine standing outdoors. Use the keypad buttons instead.
 
   # - platform: template
   #   name: "Mode 0D"

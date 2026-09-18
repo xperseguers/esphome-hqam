@@ -1,7 +1,7 @@
 mower:
   id: mower_id
   uart_id: uart_mower
-  update_interval: 5s
+  update_interval: 1s
   # battery_level: battery_level
   # battery_used: battery_used
   # charging_time: charging_time
