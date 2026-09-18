@@ -145,11 +145,10 @@ namespace esphome
                 ESP_LOGD("Automower", "UART TX (queue): %02X %02X %02X %02X %02X",
                          frame.b[0], frame.b[1], frame.b[2], frame.b[3], frame.b[4]);
                 write_array(frame.b, 5);
-                last_send_time_ = millis();
-                _writable = false;
-                // User writes don't expect replies; just mark bus busy.
-                expected_addr_ = 0;
-                awaiting_reply_ = true;
+                // User writes (mode, stop, motor, keys) don't expect replies.
+                // Release the bus immediately so poll replies and status updates
+                // can be processed without waiting for a timeout.
+                _writable = true;
             }
         }
 
