@@ -1,6 +1,10 @@
 # Timer schedule time pickers.
 # Each timer register is at 0x4A00 | reg. The write uses 0xCA00 | reg.
 # Hours: 0-23, Minutes: 0-59.
+# The mower's single-wire bus occasionally interleaves unrelated traffic
+# (see the comment in checkUartRead()), which can momentarily corrupt one
+# of these registers. Out-of-range readings are rejected below so a bad
+# poll just keeps the last known-good time instead of showing garbage.
 #
 # Timer 1: weekday start/stop
 # Timer 2: weekend start/stop
@@ -29,6 +33,7 @@ text_sensor:
       if (std::isnan(h_f) || std::isnan(m_f)) return {};
       int h = (int)h_f;
       int m = (int)m_f;
+      if (h < 0 || h > 23 || m < 0 || m > 59) return {};
       char buf[8];
       snprintf(buf, sizeof(buf), "%02d:%02d", h, m);
       return (std::string)buf;
@@ -44,6 +49,7 @@ text_sensor:
       if (std::isnan(h_f) || std::isnan(m_f)) return {};
       int h = (int)h_f;
       int m = (int)m_f;
+      if (h < 0 || h > 23 || m < 0 || m > 59) return {};
       char buf[8];
       snprintf(buf, sizeof(buf), "%02d:%02d", h, m);
       return (std::string)buf;
@@ -59,6 +65,7 @@ text_sensor:
       if (std::isnan(h_f) || std::isnan(m_f)) return {};
       int h = (int)h_f;
       int m = (int)m_f;
+      if (h < 0 || h > 23 || m < 0 || m > 59) return {};
       char buf[8];
       snprintf(buf, sizeof(buf), "%02d:%02d", h, m);
       return (std::string)buf;
@@ -74,6 +81,7 @@ text_sensor:
       if (std::isnan(h_f) || std::isnan(m_f)) return {};
       int h = (int)h_f;
       int m = (int)m_f;
+      if (h < 0 || h > 23 || m < 0 || m > 59) return {};
       char buf[8];
       snprintf(buf, sizeof(buf), "%02d:%02d", h, m);
       return (std::string)buf;
