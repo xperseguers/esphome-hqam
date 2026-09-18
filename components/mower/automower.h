@@ -92,6 +92,9 @@ namespace esphome
       void key_yes();
       void key_num(uint8_t num);
 
+      // Write a register value (0xCA00 | addr, value byte).
+      void write_register(uint16_t addr, uint8_t value);
+
     protected:
       int pollingId_ = 0;
       bool _writable = true;

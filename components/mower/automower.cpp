@@ -157,6 +157,12 @@ namespace esphome
             queueFrame(data);
         }
 
+        void Automower::write_register(uint16_t addr, uint8_t value)
+        {
+            uint8_t data[5] = {0x0F, 0xCA, static_cast<uint8_t>(addr >> 8), static_cast<uint8_t>(addr & 0xFF), value};
+            queueFrame(data);
+        }
+
         void Automower::queueFrame(const uint8_t *data)
         {
             write_queue_.push_back({{data[0], data[1], data[2], data[3], data[4]}});

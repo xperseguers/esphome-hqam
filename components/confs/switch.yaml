@@ -11,23 +11,19 @@ switch:
       - logger.log: "Timer active => ON"
       - lambda: |-
           esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
-          uint8_t data[5] = {0x0F, 0xCA, 0x4E, 0x00, 0x01};
-          mower->queueFrame(data);
+          mower->write_register(0x4A4E, 0x01);
     turn_on_action:
       - logger.log: "Timer active => ON"
       - lambda: |-
           esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
-          uint8_t data[5] = {0x0F, 0xCA, 0x4E, 0x00, 0x01};
-          mower->queueFrame(data);
+          mower->write_register(0x4A4E, 0x01);
     on_turn_off:
       - logger.log: "Timer active => OFF"
       - lambda: |-
           esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
-          uint8_t data[5] = {0x0F, 0xCA, 0x4E, 0x00, 0x00};
-          mower->queueFrame(data);
+          mower->write_register(0x4A4E, 0x00);
     turn_off_action:
       - logger.log: "Timer active => OFF"
       - lambda: |-
           esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
-          uint8_t data[5] = {0x0F, 0xCA, 0x4E, 0x00, 0x00};
-          mower->queueFrame(data);
+          mower->write_register(0x4A4E, 0x00);
