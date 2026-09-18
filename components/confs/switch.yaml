@@ -7,13 +7,13 @@ switch:
       float v = mower->get_register(0x4A4E);
       if (std::isnan(v)) return {};
       return (int)v == 1;
-    turn_on:
+    on_turn_on:
       - logger.log: "Timer active => ON"
       - lambda: |-
           esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
           uint8_t data[5] = {0x0F, 0xCA, 0x4E, 0x00, 0x01};
           mower->queueFrame(data);
-    turn_off:
+    on_turn_off:
       - logger.log: "Timer active => OFF"
       - lambda: |-
           esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
