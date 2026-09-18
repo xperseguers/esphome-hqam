@@ -66,6 +66,18 @@ sensor:
       return {v};
 
   - platform: template
+    id: batteryPercentageSensor
+    name: "Battery percentage"
+    icon: "mdi:battery"
+    unit_of_measurement: "%"
+    accuracy_decimals: 1
+    lambda: |-
+      if (id(batteryUsedSensor).state > 0) {
+        return (id(batteryLevelSensor).state / id(batteryUsedSensor).state) * 100.0;
+      }
+      return 0.0;
+
+  - platform: template
     id: bladeMotorSpeedSensor
     name: "Blade Motor Speed"
     icon: "mdi:saw-blade"
@@ -87,17 +99,6 @@ sensor:
       return {v};
 
   - platform: template
-    id: batteryChargedSensor
-    name: "Battery charged"
-    icon: "mdi:battery-check"
-    unit_of_measurement: mAh
-    lambda: |-
-      esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
-      float v = mower->get_register(0x01EF);
-      if (std::isnan(v)) return {};
-      return {v};
-
-  - platform: template
     id: batteryCapacitySensor
     name: "Battery capacity"
     icon: "mdi:battery-arrow-down"
@@ -110,8 +111,8 @@ sensor:
 
   - platform: template
     id: batteryReturnSensor
-    name: "Battery return"
-    icon: "mdi:battery-reset"
+    name: "Battery charged"
+    icon: "mdi:battery-check"
     unit_of_measurement: mAh
     lambda: |-
       esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
