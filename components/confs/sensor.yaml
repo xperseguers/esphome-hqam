@@ -86,11 +86,12 @@ sensor:
     name: "Blade Motor Speed"
     icon: "mdi:saw-blade"
     unit_of_measurement: RPM
+    accuracy_decimals: 0
     lambda: |-
       esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
       float v = mower->get_register(0x2EEA);
       if (std::isnan(v)) return {};
-      return {v};
+      return {static_cast<int>(v)};
 
   - platform: template
     id: firmwareVersionSensor
@@ -253,3 +254,15 @@ sensor:
       float v = mower->get_register(0x3AC0);
       if (std::isnan(v)) return {};
       return {v};
+
+binary_sensor:
+  - platform: template
+    id: bladeRotatingSensor
+    name: "Blade Rotating"
+    icon: "mdi:saw-blade"
+    lambda: |-
+      esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
+      float v = mower->get_register(0x2EEA);
+      if (std::isnan(v)) return {};
+      return v > 0;
+
