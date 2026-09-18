@@ -255,18 +255,6 @@ sensor:
   #     if (std::isnan(v)) return {};
   #     return {v};
 
-binary_sensor:
-  - platform: template
-    id: bladeRotatingSensor
-    name: "Blade Rotating"
-    icon: "mdi:saw-blade"
-    lambda: |-
-      esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
-      float v = mower->get_register(0x2EEA);
-      if (std::isnan(v)) return {};
-      return v > 0;
-
-
   - platform: template
     id: "lv95_e"
     name: "LV95 E"
@@ -332,3 +320,14 @@ binary_sensor:
          + 2.73 * deltaPrime
          + 6.94 * phiPrime;
       return round(h);
+
+binary_sensor:
+  - platform: template
+    id: bladeRotatingSensor
+    name: "Blade Rotating"
+    icon: "mdi:saw-blade"
+    lambda: |-
+      esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
+      float v = mower->get_register(0x2EEA);
+      if (std::isnan(v)) return {};
+      return v > 0;
