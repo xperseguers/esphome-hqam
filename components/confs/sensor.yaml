@@ -4,6 +4,7 @@ sensor:
     name: "Battery level"
     icon: "mdi:battery"
     unit_of_measurement: mAh
+    entity_category: diagnostic
     lambda: |-
       esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
       float v = mower->get_register(0x01EF);
@@ -15,6 +16,7 @@ sensor:
     name: "Charging time"
     icon: "mdi:battery-clock"
     unit_of_measurement: min
+    entity_category: diagnostic
     lambda: |-
       esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
       float v = mower->get_register(0x01EC);
@@ -26,6 +28,7 @@ sensor:
     name: "Mowing time"
     icon: "mdi:av-timer"
     unit_of_measurement: min
+    entity_category: diagnostic
     lambda: |-
       esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
       float v = mower->get_register(0x0056);
@@ -37,6 +40,7 @@ sensor:
     name: "Battery used"
     icon: "mdi:battery"
     unit_of_measurement: mAh
+    entity_category: diagnostic
     lambda: |-
       esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
       float v = mower->get_register(0x2EE0);
@@ -92,6 +96,7 @@ sensor:
     id: firmwareVersionSensor
     name: "Firmware version"
     icon: "mdi:chip"
+    entity_category: diagnostic
     lambda: |-
       esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
       float v = mower->get_register(0x3390);
@@ -103,6 +108,7 @@ sensor:
     name: "Battery capacity"
     icon: "mdi:battery-arrow-down"
     unit_of_measurement: mAh
+    entity_category: diagnostic
     lambda: |-
       esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
       float v = mower->get_register(0x00B1);
@@ -114,6 +120,7 @@ sensor:
     name: "Battery charged"
     icon: "mdi:battery-check"
     unit_of_measurement: mAh
+    entity_category: diagnostic
     lambda: |-
       esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
       float v = mower->get_register(0x01F0);
@@ -136,6 +143,7 @@ sensor:
     name: "Battery temp (charging)"
     icon: "mdi:thermometer"
     unit_of_measurement: "°C"
+    entity_category: diagnostic
     lambda: |-
       esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
       float v = mower->get_register(0x0235);
@@ -169,6 +177,7 @@ sensor:
     name: "Loop quality"
     icon: "mdi:signal"
     unit_of_measurement: "%"
+    entity_category: diagnostic
     lambda: |-
       esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
       float v = mower->get_register(0x01B9);
@@ -232,6 +241,7 @@ sensor:
     id: languageSensor
     name: "Language version"
     icon: "mdi:translate"
+    entity_category: diagnostic
     lambda: |-
       esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
       float v = mower->get_register(0x3AC0);

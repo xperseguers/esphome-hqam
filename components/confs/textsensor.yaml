@@ -3,6 +3,7 @@ text_sensor:
     id: "last_read_code"
     name: "Last received code"
     icon: "mdi:hexadecimal"
+    entity_category: diagnostic
     lambda: |-
       esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
       return {mower->get_last_code_received_text_sensor()->state};
