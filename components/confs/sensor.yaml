@@ -151,17 +151,17 @@ sensor:
       if (std::isnan(v)) return {};
       return {v};
 
-  - platform: template
-    id: tempNextCheckSensor
-    name: "Temp next check (s)"
-    icon: "mdi:timer"
-    unit_of_measurement: s
-    entity_category: diagnostic
-    lambda: |-
-      esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
-      float v = mower->get_register(0x0236);
-      if (std::isnan(v)) return {};
-      return {v};
+  # - platform: template
+  #   id: tempNextCheckSensor
+  #   name: "Temp next check (s)"
+  #   icon: "mdi:timer"
+  #   unit_of_measurement: s
+  #   entity_category: diagnostic
+  #   lambda: |-
+  #     esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
+  #     float v = mower->get_register(0x0236);
+  #     if (std::isnan(v)) return {};
+  #     return {v};
 
   - platform: template
     id: cuttingTimeSensor
@@ -186,39 +186,39 @@ sensor:
       if (std::isnan(v)) return {};
       return {v / 10.0};
 
-  - platform: template
-    id: squareStatusSensor
-    name: "Square status"
-    icon: "mdi:square"
-    entity_category: diagnostic
-    lambda: |-
-      esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
-      float v = mower->get_register(0x0138);
-      if (std::isnan(v)) return {};
-      return {v};
+  # - platform: template
+  #   id: squareStatusSensor
+  #   name: "Square status"
+  #   icon: "mdi:square"
+  #   entity_category: diagnostic
+  #   lambda: |-
+  #     esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
+  #     float v = mower->get_register(0x0138);
+  #     if (std::isnan(v)) return {};
+  #     return {v};
 
-  - platform: template
-    id: squarePercentSensor
-    name: "Square percent"
-    icon: "mdi:percent"
-    unit_of_measurement: "%"
-    entity_category: diagnostic
-    lambda: |-
-      esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
-      float v = mower->get_register(0x0134);
-      if (std::isnan(v)) return {};
-      return {v};
+  # - platform: template
+  #   id: squarePercentSensor
+  #   name: "Square percent"
+  #   icon: "mdi:percent"
+  #   unit_of_measurement: "%"
+  #   entity_category: diagnostic
+  #   lambda: |-
+  #     esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
+  #     float v = mower->get_register(0x0134);
+  #     if (std::isnan(v)) return {};
+  #     return {v};
 
-  - platform: template
-    id: squareRefSensor
-    name: "Square reference"
-    icon: "mdi:square"
-    entity_category: diagnostic
-    lambda: |-
-      esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
-      float v = mower->get_register(0x0137);
-      if (std::isnan(v)) return {};
-      return {v};
+  # - platform: template
+  #   id: squareRefSensor
+  #   name: "Square reference"
+  #   icon: "mdi:square"
+  #   entity_category: diagnostic
+  #   lambda: |-
+  #     esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
+  #     float v = mower->get_register(0x0137);
+  #     if (std::isnan(v)) return {};
+  #     return {v};
 
   - platform: template
     id: speedRightSensor
@@ -244,16 +244,16 @@ sensor:
       if (std::isnan(v)) return {};
       return {v};
 
-  - platform: template
-    id: languageSensor
-    name: "Language version"
-    icon: "mdi:translate"
-    entity_category: diagnostic
-    lambda: |-
-      esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
-      float v = mower->get_register(0x3AC0);
-      if (std::isnan(v)) return {};
-      return {v};
+  # - platform: template
+  #   id: languageSensor
+  #   name: "Language version"
+  #   icon: "mdi:translate"
+  #   entity_category: diagnostic
+  #   lambda: |-
+  #     esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
+  #     float v = mower->get_register(0x3AC0);
+  #     if (std::isnan(v)) return {};
+  #     return {v};
 
 binary_sensor:
   - platform: template
