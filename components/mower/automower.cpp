@@ -34,6 +34,19 @@ namespace esphome
         void Automower::set_charging_time_sensor(template_::TemplateSensor *s) { charging_time_sensor_ = s; }
         void Automower::set_mowing_time_sensor(template_::TemplateSensor *s) { mowing_time_sensor_ = s; }
         void Automower::set_firmware_version_sensor(template_::TemplateSensor *s) { firmware_version_sensor_ = s; }
+        void Automower::set_battery_capacity_sensor(template_::TemplateSensor *s) { battery_capacity_sensor_ = s; }
+        void Automower::set_battery_return_sensor(template_::TemplateSensor *s) { battery_return_sensor_ = s; }
+        void Automower::set_battery_temp_charged_sensor(template_::TemplateSensor *s) { battery_temp_charged_sensor_ = s; }
+        void Automower::set_battery_temp_load_sensor(template_::TemplateSensor *s) { battery_temp_load_sensor_ = s; }
+        void Automower::set_temp_next_check_sensor(template_::TemplateSensor *s) { temp_next_check_sensor_ = s; }
+        void Automower::set_cutting_time_sensor(template_::TemplateSensor *s) { cutting_time_sensor_ = s; }
+        void Automower::set_loop_quality_sensor(template_::TemplateSensor *s) { loop_quality_sensor_ = s; }
+        void Automower::set_square_status_sensor(template_::TemplateSensor *s) { square_status_sensor_ = s; }
+        void Automower::set_square_percent_sensor(template_::TemplateSensor *s) { square_percent_sensor_ = s; }
+        void Automower::set_square_ref_sensor(template_::TemplateSensor *s) { square_ref_sensor_ = s; }
+        void Automower::set_speed_right_sensor(template_::TemplateSensor *s) { speed_right_sensor_ = s; }
+        void Automower::set_speed_left_sensor(template_::TemplateSensor *s) { speed_left_sensor_ = s; }
+        void Automower::set_language_sensor(template_::TemplateSensor *s) { language_sensor_ = s; }
 
         void Automower::set_last_code_received_text_sensor(template_::TemplateTextSensor *s) { last_code_received_text_sensor_ = s; }
         void Automower::set_mode_text_sensor(template_::TemplateTextSensor *s) { mode_text_sensor_ = s; }
@@ -51,6 +64,19 @@ namespace esphome
         template_::TemplateSensor *Automower::get_charging_time_sensor() const { return charging_time_sensor_; }
         template_::TemplateSensor *Automower::get_mowing_time_sensor() const { return mowing_time_sensor_; }
         template_::TemplateSensor *Automower::get_firmware_version_sensor() const { return firmware_version_sensor_; }
+        template_::TemplateSensor *Automower::get_battery_capacity_sensor() const { return battery_capacity_sensor_; }
+        template_::TemplateSensor *Automower::get_battery_return_sensor() const { return battery_return_sensor_; }
+        template_::TemplateSensor *Automower::get_battery_temp_charged_sensor() const { return battery_temp_charged_sensor_; }
+        template_::TemplateSensor *Automower::get_battery_temp_load_sensor() const { return battery_temp_load_sensor_; }
+        template_::TemplateSensor *Automower::get_temp_next_check_sensor() const { return temp_next_check_sensor_; }
+        template_::TemplateSensor *Automower::get_cutting_time_sensor() const { return cutting_time_sensor_; }
+        template_::TemplateSensor *Automower::get_loop_quality_sensor() const { return loop_quality_sensor_; }
+        template_::TemplateSensor *Automower::get_square_status_sensor() const { return square_status_sensor_; }
+        template_::TemplateSensor *Automower::get_square_percent_sensor() const { return square_percent_sensor_; }
+        template_::TemplateSensor *Automower::get_square_ref_sensor() const { return square_ref_sensor_; }
+        template_::TemplateSensor *Automower::get_speed_right_sensor() const { return speed_right_sensor_; }
+        template_::TemplateSensor *Automower::get_speed_left_sensor() const { return speed_left_sensor_; }
+        template_::TemplateSensor *Automower::get_language_sensor() const { return language_sensor_; }
 
         template_::TemplateTextSensor *Automower::get_last_code_received_text_sensor() const { return last_code_received_text_sensor_; }
         template_::TemplateTextSensor *Automower::get_mode_text_sensor() const { return mode_text_sensor_; }
@@ -264,6 +290,108 @@ namespace esphome
                 case 0x012F:
                     setStopStatusFromCode(val);
                     store_register(0x012F, val);
+                    break;
+                // Additional registers for sensors
+                case 0x00B1:
+                    if (battery_capacity_sensor_)
+                        battery_capacity_sensor_->publish_state(val);
+                    store_register(0x00B1, val);
+                    break;
+                case 0x01F0:
+                    if (battery_return_sensor_)
+                        battery_return_sensor_->publish_state(val);
+                    store_register(0x01F0, val);
+                    break;
+                case 0x0234:
+                    if (battery_temp_charged_sensor_)
+                        battery_temp_charged_sensor_->publish_state(val);
+                    store_register(0x0234, val);
+                    break;
+                case 0x0235:
+                    if (battery_temp_load_sensor_)
+                        battery_temp_load_sensor_->publish_state(val);
+                    store_register(0x0235, val);
+                    break;
+                case 0x0236:
+                    if (temp_next_check_sensor_)
+                        temp_next_check_sensor_->publish_state(val);
+                    store_register(0x0236, val);
+                    break;
+                case 0x0038:
+                    if (cutting_time_sensor_)
+                        cutting_time_sensor_->publish_state(val);
+                    store_register(0x0038, val);
+                    break;
+                case 0x01B9:
+                    if (loop_quality_sensor_)
+                        loop_quality_sensor_->publish_state(val);
+                    store_register(0x01B9, val);
+                    break;
+                case 0x0138:
+                    if (square_status_sensor_)
+                        square_status_sensor_->publish_state(val);
+                    store_register(0x0138, val);
+                    break;
+                case 0x0134:
+                    if (square_percent_sensor_)
+                        square_percent_sensor_->publish_state(val);
+                    store_register(0x0134, val);
+                    break;
+                case 0x0137:
+                    if (square_ref_sensor_)
+                        square_ref_sensor_->publish_state(val);
+                    store_register(0x0137, val);
+                    break;
+                case 0x24BF:
+                    if (speed_right_sensor_)
+                        speed_right_sensor_->publish_state(val);
+                    store_register(0x24BF, val);
+                    break;
+                case 0x24C0:
+                    if (speed_left_sensor_)
+                        speed_left_sensor_->publish_state(val);
+                    store_register(0x24C0, val);
+                    break;
+                case 0x3AC0:
+                    if (language_sensor_)
+                        language_sensor_->publish_state(val);
+                    store_register(0x3AC0, val);
+                    break;
+                case 0x4A4E:
+                    store_register(0x4A4E, val);
+                    break;
+                case 0x4A38:
+                    store_register(0x4A38, val);
+                    break;
+                case 0x4A39:
+                    store_register(0x4A39, val);
+                    break;
+                case 0x4A3A:
+                    store_register(0x4A3A, val);
+                    break;
+                case 0x4A3B:
+                    store_register(0x4A3B, val);
+                    break;
+                case 0x4A40:
+                    store_register(0x4A40, val);
+                    break;
+                case 0x4A41:
+                    store_register(0x4A41, val);
+                    break;
+                case 0x4A42:
+                    store_register(0x4A42, val);
+                    break;
+                case 0x4A43:
+                    store_register(0x4A43, val);
+                    break;
+                case 0x36B1:
+                    store_register(0x36B1, val);
+                    break;
+                case 0x36B3:
+                    store_register(0x36B3, val);
+                    break;
+                case 0x36B5:
+                    store_register(0x36B5, val);
                     break;
                 default:
                     ESP_LOGW("Automower", "Unhandled address: 0x%04X with value 0x%04X", addr, val);
