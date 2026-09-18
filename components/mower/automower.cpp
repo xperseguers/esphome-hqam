@@ -363,33 +363,33 @@ namespace esphome
                 //         language_sensor_->publish_state(val);
                 //     store_register(0x3AC0, val);
                 //     break;
-                case 0x4A4E:
-                    store_register(0x4A4E, val);
-                    break;
-                case 0x4A38:
-                    store_register(0x4A38, val);
-                    break;
-                case 0x4A39:
-                    store_register(0x4A39, val);
-                    break;
-                case 0x4A3A:
-                    store_register(0x4A3A, val);
-                    break;
-                case 0x4A3B:
-                    store_register(0x4A3B, val);
-                    break;
-                case 0x4A40:
-                    store_register(0x4A40, val);
-                    break;
-                case 0x4A41:
-                    store_register(0x4A41, val);
-                    break;
-                case 0x4A42:
-                    store_register(0x4A42, val);
-                    break;
-                case 0x4A43:
-                    store_register(0x4A43, val);
-                    break;
+                // case 0x4A4E:
+                //     store_register(0x4A4E, val);
+                //     break;
+                // case 0x4A38:
+                //     store_register(0x4A38, val);
+                //     break;
+                // case 0x4A39:
+                //     store_register(0x4A39, val);
+                //     break;
+                // case 0x4A3A:
+                //     store_register(0x4A3A, val);
+                //     break;
+                // case 0x4A3B:
+                //     store_register(0x4A3B, val);
+                //     break;
+                // case 0x4A40:
+                //     store_register(0x4A40, val);
+                //     break;
+                // case 0x4A41:
+                //     store_register(0x4A41, val);
+                //     break;
+                // case 0x4A42:
+                //     store_register(0x4A42, val);
+                //     break;
+                // case 0x4A43:
+                //     store_register(0x4A43, val);
+                //     break;
                 case 0x36B1:
                     store_register(0x36B1, val);
                     break;

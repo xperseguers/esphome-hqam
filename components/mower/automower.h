@@ -181,15 +181,15 @@ namespace esphome
       static constexpr uint8_t getSpeedRight[5] = {0x0F, 0x24, 0xBF, 0x00, 0x00};
       static constexpr uint8_t getSpeedLeft[5] = {0x0F, 0x24, 0xC0, 0x00, 0x00};
       // static constexpr uint8_t getLanguage[5] = {0x0F, 0x3A, 0xC0, 0x00, 0x00};
-      static constexpr uint8_t getTimerActive[5] = {0x0F, 0x4A, 0x4E, 0x00, 0x00};
-      static constexpr uint8_t getTimer1StartH[5] = {0x0F, 0x4A, 0x38, 0x00, 0x00};
-      static constexpr uint8_t getTimer1StartM[5] = {0x0F, 0x4A, 0x39, 0x00, 0x00};
-      static constexpr uint8_t getTimer1StopH[5] = {0x0F, 0x4A, 0x3A, 0x00, 0x00};
-      static constexpr uint8_t getTimer1StopM[5] = {0x0F, 0x4A, 0x3B, 0x00, 0x00};
-      static constexpr uint8_t getTimer2StartH[5] = {0x0F, 0x4A, 0x40, 0x00, 0x00};
-      static constexpr uint8_t getTimer2StartM[5] = {0x0F, 0x4A, 0x41, 0x00, 0x00};
-      static constexpr uint8_t getTimer2StopH[5] = {0x0F, 0x4A, 0x42, 0x00, 0x00};
-      static constexpr uint8_t getTimer2StopM[5] = {0x0F, 0x4A, 0x43, 0x00, 0x00};
+      // static constexpr uint8_t getTimerActive[5] = {0x0F, 0x4A, 0x4E, 0x00, 0x00};
+      // static constexpr uint8_t getTimer1StartH[5] = {0x0F, 0x4A, 0x38, 0x00, 0x00};
+      // static constexpr uint8_t getTimer1StartM[5] = {0x0F, 0x4A, 0x39, 0x00, 0x00};
+      // static constexpr uint8_t getTimer1StopH[5] = {0x0F, 0x4A, 0x3A, 0x00, 0x00};
+      // static constexpr uint8_t getTimer1StopM[5] = {0x0F, 0x4A, 0x3B, 0x00, 0x00};
+      // static constexpr uint8_t getTimer2StartH[5] = {0x0F, 0x4A, 0x40, 0x00, 0x00};
+      // static constexpr uint8_t getTimer2StartM[5] = {0x0F, 0x4A, 0x41, 0x00, 0x00};
+      // static constexpr uint8_t getTimer2StopH[5] = {0x0F, 0x4A, 0x42, 0x00, 0x00};
+      // static constexpr uint8_t getTimer2StopM[5] = {0x0F, 0x4A, 0x43, 0x00, 0x00};
       static constexpr uint8_t getClockSec[5] = {0x0F, 0x36, 0xB1, 0x00, 0x00};
       static constexpr uint8_t getClockMin[5] = {0x0F, 0x36, 0xB3, 0x00, 0x00};
       static constexpr uint8_t getClockHour[5] = {0x0F, 0x36, 0xB5, 0x00, 0x00};
@@ -290,15 +290,15 @@ namespace esphome
               getSpeedRight,
               getSpeedLeft,
               // getLanguage,
-              getTimerActive,
-              getTimer1StartH,
-              getTimer1StartM,
-              getTimer1StopH,
-              getTimer1StopM,
-              getTimer2StartH,
-              getTimer2StartM,
-              getTimer2StopH,
-              getTimer2StopM,
+              // getTimerActive,
+              // getTimer1StartH,
+              // getTimer1StartM,
+              // getTimer1StopH,
+              // getTimer1StopM,
+              // getTimer2StartH,
+              // getTimer2StartM,
+              // getTimer2StopH,
+              // getTimer2StopM,
               getClockSec,
               getClockMin,
               getClockHour};

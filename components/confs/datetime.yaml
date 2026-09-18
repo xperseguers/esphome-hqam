@@ -21,67 +21,67 @@ time:
     id: homeassistant_time
     timezone: ${timezone}
 
-text_sensor:
-  - platform: template
-    id: "timer1_start_time"
-    name: "Timer 1 Start"
-    icon: "mdi:timer-play"
-    lambda: |-
-      esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
-      float h_f = mower->get_register(0x4A38);
-      float m_f = mower->get_register(0x4A39);
-      if (std::isnan(h_f) || std::isnan(m_f)) return {};
-      int h = (int)h_f;
-      int m = (int)m_f;
-      if (h < 0 || h > 23 || m < 0 || m > 59) return {};
-      char buf[8];
-      snprintf(buf, sizeof(buf), "%02d:%02d", h, m);
-      return (std::string)buf;
-
-  - platform: template
-    id: "timer1_stop_time"
-    name: "Timer 1 Stop"
-    icon: "mdi:timer-stop"
-    lambda: |-
-      esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
-      float h_f = mower->get_register(0x4A3A);
-      float m_f = mower->get_register(0x4A3B);
-      if (std::isnan(h_f) || std::isnan(m_f)) return {};
-      int h = (int)h_f;
-      int m = (int)m_f;
-      if (h < 0 || h > 23 || m < 0 || m > 59) return {};
-      char buf[8];
-      snprintf(buf, sizeof(buf), "%02d:%02d", h, m);
-      return (std::string)buf;
-
-  - platform: template
-    id: "timer2_start_time"
-    name: "Timer 2 Start"
-    icon: "mdi:timer-play"
-    lambda: |-
-      esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
-      float h_f = mower->get_register(0x4A40);
-      float m_f = mower->get_register(0x4A41);
-      if (std::isnan(h_f) || std::isnan(m_f)) return {};
-      int h = (int)h_f;
-      int m = (int)m_f;
-      if (h < 0 || h > 23 || m < 0 || m > 59) return {};
-      char buf[8];
-      snprintf(buf, sizeof(buf), "%02d:%02d", h, m);
-      return (std::string)buf;
-
-  - platform: template
-    id: "timer2_stop_time"
-    name: "Timer 2 Stop"
-    icon: "mdi:timer-stop"
-    lambda: |-
-      esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
-      float h_f = mower->get_register(0x4A42);
-      float m_f = mower->get_register(0x4A43);
-      if (std::isnan(h_f) || std::isnan(m_f)) return {};
-      int h = (int)h_f;
-      int m = (int)m_f;
-      if (h < 0 || h > 23 || m < 0 || m > 59) return {};
-      char buf[8];
-      snprintf(buf, sizeof(buf), "%02d:%02d", h, m);
-      return (std::string)buf;
+# text_sensor:
+#   - platform: template
+#     id: "timer1_start_time"
+#     name: "Timer 1 Start"
+#     icon: "mdi:timer-play"
+#     lambda: |-
+#       esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
+#       float h_f = mower->get_register(0x4A38);
+#       float m_f = mower->get_register(0x4A39);
+#       if (std::isnan(h_f) || std::isnan(m_f)) return {};
+#       int h = (int)h_f;
+#       int m = (int)m_f;
+#       if (h < 0 || h > 23 || m < 0 || m > 59) return {};
+#       char buf[8];
+#       snprintf(buf, sizeof(buf), "%02d:%02d", h, m);
+#       return (std::string)buf;
+# 
+#   - platform: template
+#     id: "timer1_stop_time"
+#     name: "Timer 1 Stop"
+#     icon: "mdi:timer-stop"
+#     lambda: |-
+#       esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
+#       float h_f = mower->get_register(0x4A3A);
+#       float m_f = mower->get_register(0x4A3B);
+#       if (std::isnan(h_f) || std::isnan(m_f)) return {};
+#       int h = (int)h_f;
+#       int m = (int)m_f;
+#       if (h < 0 || h > 23 || m < 0 || m > 59) return {};
+#       char buf[8];
+#       snprintf(buf, sizeof(buf), "%02d:%02d", h, m);
+#       return (std::string)buf;
+# 
+#   - platform: template
+#     id: "timer2_start_time"
+#     name: "Timer 2 Start"
+#     icon: "mdi:timer-play"
+#     lambda: |-
+#       esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
+#       float h_f = mower->get_register(0x4A40);
+#       float m_f = mower->get_register(0x4A41);
+#       if (std::isnan(h_f) || std::isnan(m_f)) return {};
+#       int h = (int)h_f;
+#       int m = (int)m_f;
+#       if (h < 0 || h > 23 || m < 0 || m > 59) return {};
+#       char buf[8];
+#       snprintf(buf, sizeof(buf), "%02d:%02d", h, m);
+#       return (std::string)buf;
+# 
+#   - platform: template
+#     id: "timer2_stop_time"
+#     name: "Timer 2 Stop"
+#     icon: "mdi:timer-stop"
+#     lambda: |-
+#       esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
+#       float h_f = mower->get_register(0x4A42);
+#       float m_f = mower->get_register(0x4A43);
+#       if (std::isnan(h_f) || std::isnan(m_f)) return {};
+#       int h = (int)h_f;
+#       int m = (int)m_f;
+#       if (h < 0 || h > 23 || m < 0 || m > 59) return {};
+#       char buf[8];
+#       snprintf(buf, sizeof(buf), "%02d:%02d", h, m);
+#       return (std::string)buf;
