@@ -183,7 +183,7 @@ sensor:
       esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
       float v = mower->get_register(0x01B9);
       if (std::isnan(v)) return {};
-      return {v};
+      return {v / 10.0};
 
   - platform: template
     id: squareStatusSensor
