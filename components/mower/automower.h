@@ -33,15 +33,15 @@ namespace esphome
       void set_battery_return_sensor(template_::TemplateSensor *s);
       void set_battery_temp_charged_sensor(template_::TemplateSensor *s);
       void set_battery_temp_load_sensor(template_::TemplateSensor *s);
-      void set_temp_next_check_sensor(template_::TemplateSensor *s);
+      // void set_temp_next_check_sensor(template_::TemplateSensor *s);
       void set_cutting_time_sensor(template_::TemplateSensor *s);
       void set_loop_quality_sensor(template_::TemplateSensor *s);
-      void set_square_status_sensor(template_::TemplateSensor *s);
-      void set_square_percent_sensor(template_::TemplateSensor *s);
-      void set_square_ref_sensor(template_::TemplateSensor *s);
+      // void set_square_status_sensor(template_::TemplateSensor *s);
+      // void set_square_percent_sensor(template_::TemplateSensor *s);
+      // void set_square_ref_sensor(template_::TemplateSensor *s);
       void set_speed_right_sensor(template_::TemplateSensor *s);
       void set_speed_left_sensor(template_::TemplateSensor *s);
-      void set_language_sensor(template_::TemplateSensor *s);
+      // void set_language_sensor(template_::TemplateSensor *s);
 
       void set_last_code_received_text_sensor(template_::TemplateTextSensor *s);
       void set_mode_text_sensor(template_::TemplateTextSensor *s);
@@ -60,15 +60,15 @@ namespace esphome
       template_::TemplateSensor *get_battery_return_sensor() const;
       template_::TemplateSensor *get_battery_temp_charged_sensor() const;
       template_::TemplateSensor *get_battery_temp_load_sensor() const;
-      template_::TemplateSensor *get_temp_next_check_sensor() const;
+      // template_::TemplateSensor *get_temp_next_check_sensor() const;
       template_::TemplateSensor *get_cutting_time_sensor() const;
       template_::TemplateSensor *get_loop_quality_sensor() const;
-      template_::TemplateSensor *get_square_status_sensor() const;
-      template_::TemplateSensor *get_square_percent_sensor() const;
-      template_::TemplateSensor *get_square_ref_sensor() const;
+      // template_::TemplateSensor *get_square_status_sensor() const;
+      // template_::TemplateSensor *get_square_percent_sensor() const;
+      // template_::TemplateSensor *get_square_ref_sensor() const;
       template_::TemplateSensor *get_speed_right_sensor() const;
       template_::TemplateSensor *get_speed_left_sensor() const;
-      template_::TemplateSensor *get_language_sensor() const;
+      // template_::TemplateSensor *get_language_sensor() const;
 
       template_::TemplateTextSensor *get_last_code_received_text_sensor() const;
       template_::TemplateTextSensor *get_mode_text_sensor() const;
@@ -91,6 +91,9 @@ namespace esphome
       void key_back();
       void key_yes();
       void key_num(uint8_t num);
+
+      // Write a register value (0xCA00 | addr, value byte).
+      void write_register(uint16_t addr, uint8_t value);
 
     protected:
       int pollingId_ = 0;
@@ -124,15 +127,15 @@ namespace esphome
       template_::TemplateSensor *battery_return_sensor_ = nullptr;
       template_::TemplateSensor *battery_temp_charged_sensor_ = nullptr;
       template_::TemplateSensor *battery_temp_load_sensor_ = nullptr;
-      template_::TemplateSensor *temp_next_check_sensor_ = nullptr;
+      // template_::TemplateSensor *temp_next_check_sensor_ = nullptr;
       template_::TemplateSensor *cutting_time_sensor_ = nullptr;
       template_::TemplateSensor *loop_quality_sensor_ = nullptr;
-      template_::TemplateSensor *square_status_sensor_ = nullptr;
-      template_::TemplateSensor *square_percent_sensor_ = nullptr;
-      template_::TemplateSensor *square_ref_sensor_ = nullptr;
+      // template_::TemplateSensor *square_status_sensor_ = nullptr;
+      // template_::TemplateSensor *square_percent_sensor_ = nullptr;
+      // template_::TemplateSensor *square_ref_sensor_ = nullptr;
       template_::TemplateSensor *speed_right_sensor_ = nullptr;
       template_::TemplateSensor *speed_left_sensor_ = nullptr;
-      template_::TemplateSensor *language_sensor_ = nullptr;
+      // template_::TemplateSensor *language_sensor_ = nullptr;
 
       template_::TemplateTextSensor *mode_text_sensor_ = nullptr;
       template_::TemplateTextSensor *status_text_sensor_ = nullptr;
@@ -169,24 +172,24 @@ namespace esphome
       static constexpr uint8_t getBatteryReturn[5] = {0x0F, 0x01, 0xF0, 0x00, 0x00};
       static constexpr uint8_t getBatteryTempCharged[5] = {0x0F, 0x02, 0x34, 0x00, 0x00};
       static constexpr uint8_t getBatteryTempLoad[5] = {0x0F, 0x02, 0x35, 0x00, 0x00};
-      static constexpr uint8_t getTempNextCheck[5] = {0x0F, 0x02, 0x36, 0x00, 0x00};
+      // static constexpr uint8_t getTempNextCheck[5] = {0x0F, 0x02, 0x36, 0x00, 0x00};
       static constexpr uint8_t getCuttingTime[5] = {0x0F, 0x00, 0x38, 0x00, 0x00};
       static constexpr uint8_t getLoopQuality[5] = {0x0F, 0x01, 0xB9, 0x00, 0x00};
-      static constexpr uint8_t getSquareStatus[5] = {0x0F, 0x01, 0x38, 0x00, 0x00};
-      static constexpr uint8_t getSquarePercent[5] = {0x0F, 0x01, 0x34, 0x00, 0x00};
-      static constexpr uint8_t getSquareRef[5] = {0x0F, 0x01, 0x37, 0x00, 0x00};
+      // static constexpr uint8_t getSquareStatus[5] = {0x0F, 0x01, 0x38, 0x00, 0x00};
+      // static constexpr uint8_t getSquarePercent[5] = {0x0F, 0x01, 0x34, 0x00, 0x00};
+      // static constexpr uint8_t getSquareRef[5] = {0x0F, 0x01, 0x37, 0x00, 0x00};
       static constexpr uint8_t getSpeedRight[5] = {0x0F, 0x24, 0xBF, 0x00, 0x00};
       static constexpr uint8_t getSpeedLeft[5] = {0x0F, 0x24, 0xC0, 0x00, 0x00};
-      static constexpr uint8_t getLanguage[5] = {0x0F, 0x3A, 0xC0, 0x00, 0x00};
-      static constexpr uint8_t getTimerActive[5] = {0x0F, 0x4A, 0x4E, 0x00, 0x00};
-      static constexpr uint8_t getTimer1StartH[5] = {0x0F, 0x4A, 0x38, 0x00, 0x00};
-      static constexpr uint8_t getTimer1StartM[5] = {0x0F, 0x4A, 0x39, 0x00, 0x00};
-      static constexpr uint8_t getTimer1StopH[5] = {0x0F, 0x4A, 0x3A, 0x00, 0x00};
-      static constexpr uint8_t getTimer1StopM[5] = {0x0F, 0x4A, 0x3B, 0x00, 0x00};
-      static constexpr uint8_t getTimer2StartH[5] = {0x0F, 0x4A, 0x40, 0x00, 0x00};
-      static constexpr uint8_t getTimer2StartM[5] = {0x0F, 0x4A, 0x41, 0x00, 0x00};
-      static constexpr uint8_t getTimer2StopH[5] = {0x0F, 0x4A, 0x42, 0x00, 0x00};
-      static constexpr uint8_t getTimer2StopM[5] = {0x0F, 0x4A, 0x43, 0x00, 0x00};
+      // static constexpr uint8_t getLanguage[5] = {0x0F, 0x3A, 0xC0, 0x00, 0x00};
+      // static constexpr uint8_t getTimerActive[5] = {0x0F, 0x4A, 0x4E, 0x00, 0x00};
+      // static constexpr uint8_t getTimer1StartH[5] = {0x0F, 0x4A, 0x38, 0x00, 0x00};
+      // static constexpr uint8_t getTimer1StartM[5] = {0x0F, 0x4A, 0x39, 0x00, 0x00};
+      // static constexpr uint8_t getTimer1StopH[5] = {0x0F, 0x4A, 0x3A, 0x00, 0x00};
+      // static constexpr uint8_t getTimer1StopM[5] = {0x0F, 0x4A, 0x3B, 0x00, 0x00};
+      // static constexpr uint8_t getTimer2StartH[5] = {0x0F, 0x4A, 0x40, 0x00, 0x00};
+      // static constexpr uint8_t getTimer2StartM[5] = {0x0F, 0x4A, 0x41, 0x00, 0x00};
+      // static constexpr uint8_t getTimer2StopH[5] = {0x0F, 0x4A, 0x42, 0x00, 0x00};
+      // static constexpr uint8_t getTimer2StopM[5] = {0x0F, 0x4A, 0x43, 0x00, 0x00};
       static constexpr uint8_t getClockSec[5] = {0x0F, 0x36, 0xB1, 0x00, 0x00};
       static constexpr uint8_t getClockMin[5] = {0x0F, 0x36, 0xB3, 0x00, 0x00};
       static constexpr uint8_t getClockHour[5] = {0x0F, 0x36, 0xB5, 0x00, 0x00};
@@ -278,24 +281,24 @@ namespace esphome
               getBatteryReturn,
               getBatteryTempCharged,
               getBatteryTempLoad,
-              getTempNextCheck,
+              // getTempNextCheck,
               getCuttingTime,
               getLoopQuality,
-              getSquareStatus,
-              getSquarePercent,
-              getSquareRef,
+              // getSquareStatus,
+              // getSquarePercent,
+              // getSquareRef,
               getSpeedRight,
               getSpeedLeft,
-              getLanguage,
-              getTimerActive,
-              getTimer1StartH,
-              getTimer1StartM,
-              getTimer1StopH,
-              getTimer1StopM,
-              getTimer2StartH,
-              getTimer2StartM,
-              getTimer2StopH,
-              getTimer2StopM,
+              // getLanguage,
+              // getTimerActive,
+              // getTimer1StartH,
+              // getTimer1StartM,
+              // getTimer1StopH,
+              // getTimer1StopM,
+              // getTimer2StartH,
+              // getTimer2StartM,
+              // getTimer2StopH,
+              // getTimer2StopM,
               getClockSec,
               getClockMin,
               getClockHour};

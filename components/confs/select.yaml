@@ -10,7 +10,10 @@ select:
       - "DEMO"
     lambda: |-
       esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
-      return {mower->get_mode_text_sensor()->state};
+      auto s = mower->get_mode_text_sensor()->state;
+      if (s == "MAN" || s == "AUTO" || s == "HOME" || s == "DEMO")
+        return {s};
+      return {};
     set_action:
       then:
         - lambda: |-
