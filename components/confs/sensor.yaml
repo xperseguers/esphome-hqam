@@ -188,6 +188,7 @@ sensor:
     id: squareStatusSensor
     name: "Square status"
     icon: "mdi:square"
+    entity_category: diagnostic
     lambda: |-
       esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
       float v = mower->get_register(0x0138);
@@ -199,6 +200,7 @@ sensor:
     name: "Square percent"
     icon: "mdi:percent"
     unit_of_measurement: "%"
+    entity_category: diagnostic
     lambda: |-
       esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
       float v = mower->get_register(0x0134);
@@ -209,6 +211,7 @@ sensor:
     id: squareRefSensor
     name: "Square reference"
     icon: "mdi:square"
+    entity_category: diagnostic
     lambda: |-
       esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
       float v = mower->get_register(0x0137);
@@ -220,6 +223,7 @@ sensor:
     name: "Right wheel speed"
     icon: "mdi:speedometer"
     unit_of_measurement: RPM
+    entity_category: diagnostic
     lambda: |-
       esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
       float v = mower->get_register(0x24BF);
@@ -231,6 +235,7 @@ sensor:
     name: "Left wheel speed"
     icon: "mdi:speedometer"
     unit_of_measurement: RPM
+    entity_category: diagnostic
     lambda: |-
       esphome::mower::Automower *mower = (esphome::mower::Automower *) id(mower_id);
       float v = mower->get_register(0x24C0);
