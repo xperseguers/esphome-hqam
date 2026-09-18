@@ -1,6 +1,6 @@
 substitutions:
   name: "automower"
-  friendlyName: "Automower"
+  friendlyName: "Husqvarna Automower 230 ACX"
   timezone: "Europe/Zurich"
   rxpin: "GPIO16"
   txpin: "GPIO17"
@@ -30,6 +30,7 @@ ota:
 wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password
+  min_auth_mode: "WPA2"
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
@@ -39,13 +40,13 @@ wifi:
 captive_portal:
 
 external_components:
-  - source: github://orrpan/esphome-hqam@main
+  - source: github://xperseguers/esphome-hqam@gps
     refresh: always
 
 packages:
   remote_package:
-    url: https://github.com/orrpan/esphome-hqam
-    ref: main
+    url: https://github.com/xperseguers/esphome-hqam
+    ref: gps
     refresh: always
     files:
       [
@@ -55,5 +56,7 @@ packages:
         components/confs/select.yaml,
         components/confs/sensor.yaml,
         components/confs/textsensor.yaml,
+        components/confs/switch.yaml,
+        components/confs/datetime.yaml,
         components/confs/gps.yaml,
       ]
