@@ -13,9 +13,8 @@
 #         - components/confs/datetime.yaml
 
 time:
-  - platform: homeassistant
-    id: homeassistant_time
-    timezone: ${timezone}
+  - platform: gps
+    id: gps_time
 
 text_sensor:
   - platform: template
