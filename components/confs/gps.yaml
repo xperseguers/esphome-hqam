@@ -6,16 +6,27 @@ gps:
     name: "GPS Latitude"
     id: gps_latitude
     force_update: true
+    filters:
+      # Only accept values in expected range (roughly -90 to 90)
+      # Adjust min/max to your region
+      - lambda: if (x > -90.0 && x < 90.0) return x; else return {};
 
   longitude:
     name: "GPS Longitude"
     id: gps_longitude
     force_update: true
+    filters:
+      # Only accept values in expected range (roughly -180 to 180)
+      # Adjust min/max to your region
+      - lambda: if (x > -180.0 && x < 180.0) return x; else return {};
 
   altitude:
     name: "GPS Altitude"
     id: gps_altitude
     force_update: true
+    filters:
+      # Only accept reasonable altitudes (sea level to ~9000m)
+      - lambda: if (x > -500.0 && x < 9000.0) return x; else return {};
 
   speed:
     name: "GPS Speed"
@@ -43,3 +54,34 @@ gps:
   hdop:
     name: "GPS HDOP"
     id: gps_hdop
+
+sensor:
+  # Template sensor to validate GPS fix quality
+  # Use this before trusting GPS coordinates
+  - platform: template
+    name: "GPS Fix Valid"
+    id: gps_fix_valid
+    lambda: |-
+      if (id(gps_satellites).state >= 4 && id(gps_hdop).state < 5.0) {
+        return true;
+      }
+      return false;
+
+  # Template sensor that only outputs coordinates when fix is valid
+  - platform: template
+    name: "GPS Latitude (Valid)"
+    id: gps_latitude_valid
+    lambda: |-
+      if (id(gps_fix_valid).state) {
+        return id(gps_latitude).state;
+      }
+      return NAN;
+
+  - platform: template
+    name: "GPS Longitude (Valid)"
+    id: gps_longitude_valid
+    lambda: |-
+      if (id(gps_fix_valid).state) {
+        return id(gps_longitude).state;
+      }
+      return NAN;

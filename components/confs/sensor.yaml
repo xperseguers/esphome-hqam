@@ -261,8 +261,11 @@ sensor:
     unit_of_measurement: "m"
     icon: mdi:pan-horizontal
     lambda: |-
-      double phi = id(gps_latitude).state * 3600.0;
-      double delta = id(gps_longitude).state * 3600.0;
+      if (std::isnan(id(gps_latitude_valid).state) || std::isnan(id(gps_longitude_valid).state)) {
+        return {};
+      }
+      double phi = id(gps_latitude_valid).state * 3600.0;
+      double delta = id(gps_longitude_valid).state * 3600.0;
       double phiPrime = (phi - 169028.66) / 10000;
       double deltaPrime = (delta - 26782.5) / 10000;
       double E = 2600072.37
@@ -278,8 +281,11 @@ sensor:
     unit_of_measurement: "m"
     icon: mdi:pan-vertical
     lambda: |-
-      double phi = id(gps_latitude).state * 3600.0;
-      double delta = id(gps_longitude).state * 3600.0;
+      if (std::isnan(id(gps_latitude_valid).state) || std::isnan(id(gps_longitude_valid).state)) {
+        return {};
+      }
+      double phi = id(gps_latitude_valid).state * 3600.0;
+      double delta = id(gps_longitude_valid).state * 3600.0;
       double phiPrime = (phi - 169028.66) / 10000;
       double deltaPrime = (delta - 26782.5) / 10000;
       double N = 1200147.07
@@ -296,6 +302,9 @@ sensor:
     unit_of_measurement: "m"
     icon: mdi:pan-horizontal
     lambda: |-
+      if (std::isnan(id(lv95_e).state)) {
+        return {};
+      }
       return id(lv95_e).state - 2000000.0;
 
   - platform: template
@@ -304,6 +313,9 @@ sensor:
     unit_of_measurement: "m"
     icon: mdi:pan-vertical
     lambda: |-
+      if (std::isnan(id(lv95_n).state)) {
+        return {};
+      }
       return id(lv95_n).state - 1000000.0;
 
   - platform: template
@@ -312,8 +324,11 @@ sensor:
     unit_of_measurement: "m"
     icon: mdi:image-filter-hdr-outline
     lambda: |-
-      double phi = id(gps_latitude).state * 3600.0;
-      double delta = id(gps_longitude).state * 3600.0;
+      if (std::isnan(id(gps_latitude_valid).state) || std::isnan(id(gps_longitude_valid).state) || std::isnan(id(gps_altitude).state)) {
+        return {};
+      }
+      double phi = id(gps_latitude_valid).state * 3600.0;
+      double delta = id(gps_longitude_valid).state * 3600.0;
       double phiPrime = (phi - 169028.66) / 10000;
       double deltaPrime = (delta - 26782.5) / 10000;
       double h = id(gps_altitude).state - 49.55
